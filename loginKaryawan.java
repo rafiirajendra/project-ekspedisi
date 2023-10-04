@@ -9,15 +9,18 @@ public class loginKaryawan {
         int passwordBetul = 456 ;
 
         Scanner input = new Scanner(System.in);
+        System.out.println("|=====================================|");
+        System.out.println("Selamat datang silahkan login! ");
         System.out.print("Masukkan Username anda: ");
         int username = input.nextInt();
         System.out.print("Masukkan Password anda: ");
         int password = input.nextInt();
 
     if (usernameBetul == username && passwordBetul == password) {
-        System.out.println("Anda berhasil login ");
+        System.out.println("Anda berhasil login !");
     } else {
         System.out.println("Username dan Password anda SALAH!");
     }
+        System.out.println("|=====================================|");
     }
 }
