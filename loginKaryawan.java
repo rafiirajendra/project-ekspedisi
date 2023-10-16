@@ -5,22 +5,22 @@ import java.util.Scanner;
 public class loginKaryawan {
 
     public static void main(String[] args) {
-        int usernameBetul = 123;
-        int passwordBetul = 456 ;
-
         Scanner input = new Scanner(System.in);
-        System.out.println("|=====================================|");
-        System.out.println("Selamat datang silahkan login! ");
-        System.out.print("Masukkan Username anda: ");
-        int username = input.nextInt();
-        System.out.print("Masukkan Password anda: ");
-        int password = input.nextInt();
+        String username, password;
+        
+        while (true) {
+            System.out.print("Masukkan Username Anda : ");
+            username = input.nextLine();
+            System.out.print("Masukkan Password Anda : ");
+            password = input.nextLine();
+            
+            if (username.equals("user123") && password.equals("pass123")) {
+                System.out.println("Anda Berhasil Login");
+                break;
+            } else {
+                System.out.println("Username dan Password Anda Salah!");
+            }
+        }
 
-    if (usernameBetul == username && passwordBetul == password) {
-        System.out.println("Anda berhasil login !");
-    } else {
-        System.out.println("Username dan Password anda SALAH!");
-    }
-        System.out.println("|=====================================|");
-    }
+    }
 }
