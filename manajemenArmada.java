@@ -7,7 +7,7 @@ public class manajemenArmada {
 
     public static void main(String[] args) {
         Scanner inputlo = new Scanner(System.in);
-        System.out.print("Masukkan total berat barang: ");
+        System.out.print("Masukkan total berat barang (dalam kilogram): ");
         float beratBarang = inputlo.nextFloat();
         
         if (beratBarang >= 120) {
@@ -15,8 +15,5 @@ public class manajemenArmada {
         } else {
             System.out.println("Barang dikirim menggunakan motor");
         }
-
-
-        
     }
 }

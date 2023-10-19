@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
-public class biayaPengiriman {
+public class BiayaPengirimanifbersarang { //penggunaan if bersarang 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int biayaKm = 4000, biayaBrt = 5000;
         float jarakPengiriman, beratBarang, biayaPengiriman;
-
+        
         System.out.println("Masukkan jarak (dalam km): ");
         jarakPengiriman = sc.nextFloat();
 
