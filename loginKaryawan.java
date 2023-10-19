@@ -9,11 +9,18 @@ public class loginKaryawan {
         String username, password, nik, user;
 
         System.out.println("===WELCOME TO EKSPEDISI===");
-        System.out.print("LOGIN SEBAGAI : ");
-        user = input.nextLine();
 
-        if (user.equalsIgnoreCase("karyawan")) {
+        while (true) {
+            System.out.print("LOGIN SEBAGAI : ");
+            user = input.nextLine();
+            if (user.equalsIgnoreCase("karyawan") || user.equalsIgnoreCase("pelanggan")) {
+                break; 
+            } else {
+                System.out.println("USER TIDAK VALID! (silakan masukkan 'karyawan' atau 'pelanggan')");
+            }
+        }
 
+        if (user.equalsIgnoreCase("karyawan")) { 
             while (true) {
                 System.out.print("Masukkan Username Anda                    : ");
                 username = input.nextLine();
@@ -22,7 +29,7 @@ public class loginKaryawan {
                 System.out.print("Masukkan Nomor Identitas Karyawan Anda    : ");
                 nik = input.nextLine();
 
-                if (username.equals("kry123") && password.equals("kry123") && nik.equals("20230123")) {
+                if (username.equals("kary123") && password.equals("kary123") && nik.equals("20230123")) {
                     System.out.println("LOGIN SUCCESSFUL");
                     break;
                 } else {
@@ -48,8 +55,6 @@ public class loginKaryawan {
            
             }
         }
-        else
-            System.out.print("===OUT OF SYSTEM===");
         
     }
 }
