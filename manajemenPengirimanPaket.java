@@ -10,12 +10,13 @@ public class manajemenPengirimanPaket {
        Scanner sc = new Scanner(System.in);
       
         while (true) {
-            System.out.println("===================");
+            System.out.println("====================");
             System.out.println("    Pilih menu  ");
-            System.out.println("===================");
+            System.out.println("====================");
             System.out.println("1. Tambah Barang");
             System.out.println("2. Hapus Barang");
             System.out.println("3. Keluar Menu");
+            System.out.print("Pilih angka 1/2/3: ");
 
            int pilihan = sc.nextInt();
 
@@ -33,7 +34,9 @@ public class manajemenPengirimanPaket {
                     barang = sc.next();
                     break;
                 case 3:
-                    System.out.println("---Thank you---");
+                    System.out.println("=================");
+                    System.out.println("    Thank you   ");
+                    System.out.println("=================");
                     System.exit(0);
                 default:
                     break;
