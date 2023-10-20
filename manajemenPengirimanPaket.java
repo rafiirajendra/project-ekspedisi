@@ -24,9 +24,9 @@ public class manajemenPengirimanPaket {
                 case 1:
                     System.out.print("Masukkan nama barang: ");
                     barang = sc.next();
-                    System.out.print("Masukkan jumlah barang(dalam kg): ");
+                    System.out.print("Masukkan jumlah barang: ");
                     jmlhbarang = sc.nextInt();
-                    System.out.print("Masukkan berat barang: ");
+                    System.out.print("Masukkan berat barang(dalam kg): ");
                     brtBarang = sc.nextFloat();
                     break;
                 case 2:
