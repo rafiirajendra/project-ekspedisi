@@ -39,6 +39,15 @@ public class manajemenPengirimanPaket {
                     System.out.println("=================");
                     System.exit(0);
                 default:
+                    System.out.println("Inputan anda tidak valid");
+                    System.out.print("Apakah Anda ingin memasukkan angka lagi (Y/N)? ");
+                    String input = sc.next();
+                    if (input.equalsIgnoreCase("N")) {
+                        System.out.println("=================");
+                        System.out.println("    Thank you   ");
+                        System.out.println("=================");
+                        System.exit(0);
+                    }
                     break;
             }
             
