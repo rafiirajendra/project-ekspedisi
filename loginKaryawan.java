@@ -33,7 +33,7 @@ public class loginKaryawan {
                     System.out.println("LOGIN SUCCESSFUL");
                     break;
                 } else {
-                    System.out.println("LOGIN FAILED! (masukkan kembali dengan data yang benar)");
+                    System.out.println("LOGIN FAILED. Isi kembali dengan data yang benar!");
                 }
            
             }
@@ -50,7 +50,7 @@ public class loginKaryawan {
                     System.out.println("LOGIN SUCCESSFUL");
                     break;
                 } else {
-                    System.out.println("LOGIN FAILED! (masukkan kembali dengan data yang benar)");
+                    System.out.println("LOGIN FAILED. Isi kembali dengan data yang benar!");
                 }
            
             }
