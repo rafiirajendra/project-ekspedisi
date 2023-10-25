@@ -33,7 +33,7 @@ public class ManajemenDataPelanggan {
                 System.out.println("Nama Pelanggan              : " +cusName);
                 System.out.println("Alamat Pelanggan            : " +cusAddress);
                 System.out.println("Nomor Telephone Pelanggan   : " +cusCont);
-                System.out.println("Riwayat Transaksi           : " ); ///riwayat transaksi
+                System.out.println("Riwayat Transaksi           : " ); //riwayat transaksi
                 break;
 
                 case 3 :
