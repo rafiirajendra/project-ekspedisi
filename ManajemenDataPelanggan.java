@@ -52,6 +52,7 @@ public class ManajemenDataPelanggan {
                 break;
 
                 case 4 :
+                System.out.println("Berhasil kembali ke Menu Utama.");
                 System.out.println("===MENU UTAMA===");
                 break;
 
