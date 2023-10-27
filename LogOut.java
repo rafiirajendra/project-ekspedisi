@@ -16,7 +16,7 @@ public class LogOut {
 
             switch (pilihan) {
                 case 1 :
-                //login
+                //fitur login
                 break;
 
                 case 2 :
