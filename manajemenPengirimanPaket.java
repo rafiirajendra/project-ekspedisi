@@ -7,7 +7,8 @@ public class manajemenPengirimanPaket {
     String[] namaBarang = new String[100];
     int[] jmlBarang = new int[100]; 
     float[] brtBarang = new float[100];
-    
+    String next;
+
     int index = 0;
 
     Scanner sc = new Scanner(System.in);
@@ -23,9 +24,11 @@ public class manajemenPengirimanPaket {
       System.out.print("Pilih (1/2/3/4): ");
 
       int pilihan = sc.nextInt();
+      sc.nextLine();
 
       switch (pilihan) {
         case 1:
+        do {
           System.out.print("Nama barang: ");
           String nama = sc.next();
           System.out.print("Jumlah barang: ");  
@@ -38,8 +41,11 @@ public class manajemenPengirimanPaket {
           jmlBarang[index] = jumlah;
           brtBarang[index] = berat;
           index++;
-          break;
 
+          System.out.print("Input barang lainnya? (y/n): ");
+          next = sc.next();
+        } while (next.equalsIgnoreCase("y"));
+        break;
         case 2:
           System.out.print("Nama barang yang dihapus: ");
           String hapus = sc.next();
