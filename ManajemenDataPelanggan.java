@@ -5,6 +5,7 @@ public class ManajemenDataPelanggan {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String[][] customerData = new String[100][3];
+        String next;
         int pilihan;
         int i = 0;
 
@@ -23,13 +24,15 @@ public class ManajemenDataPelanggan {
             switch (pilihan) {
                 case 1 :
                     System.out.println("===Pelanggan Baru===");
+                    
                     System.out.print("Masukkan Nama Pelanggan               : ");
                     customerData[i][0] = sc.nextLine();
                     System.out.print("Masukkan Alamat Pelanggan             : ");
                     customerData[i][1] = sc.nextLine();
                     System.out.print("Masukkan Nomor Telephone Pelanggan    : ");
                     customerData[i][2] = sc.nextLine();
-                    i++;
+                    System.out.print("Input penonton lainnya? (y/n) : ");
+                    next = sc.nextLine();
                     break;
 
                 case 2 :
