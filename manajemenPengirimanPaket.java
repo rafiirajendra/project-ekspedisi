@@ -1,68 +1,40 @@
 import java.util.Scanner;
 
 public class manajemenPengirimanPaket {
-    public static void main(String[] args) {
 
-        String Abarang;
+  public static void main(String[] args) {
+
+        String barang;
         int jmlhbarang;
         float brtBarang;
-        String next;
 
        Scanner sc = new Scanner(System.in);
-
-       String[][] barang = new String[10][10];
-
+      
         while (true) {
             System.out.println("====================");
             System.out.println("    Pilih menu  ");
             System.out.println("====================");
             System.out.println("1. Tambah Barang");
-            System.out.println("2. Tampilkan barang");
+            System.out.println("2. Hapus Barang");
             System.out.println("3. Keluar Menu");
             System.out.print("Pilih angka 1/2/3: ");
 
-           int pilihan = sc.nextInt();
+      int pilihan = sc.nextInt();
+      sc.nextLine();
 
             switch (pilihan) {
                 case 1:
-                do {
                     System.out.print("Masukkan nama barang: ");
-                    Abarang = sc.next();
+                    barang = sc.next();
                     System.out.print("Masukkan jumlah barang: ");
                     jmlhbarang = sc.nextInt();
                     System.out.print("Masukkan berat barang(dalam kg): ");
                     brtBarang = sc.nextFloat();
-                    sc.nextLine();
-
-                    for (int i = 0; i < barang.length; i++) {
-                      if (barang[i][0] == null) {
-                          barang[i][0] = Abarang;
-                          barang[i][1] = String.valueOf(jmlhbarang);
-                          barang[i][2] = String.valueOf(brtBarang);
-                          break;
-                      }
-                  }
-
-                    System.out.print("Input barang lagi? (y/n)");
-                    next = sc.nextLine();
-                } while (next.equalsIgnoreCase("y"));
                     break;
                 case 2:
-                System.out.println("========================");
-                System.out.println("Daftar barang: ");
-                for (int i = 0; i < barang.length; i++) {
-                    for (int j = 0; j < barang[i].length; j++) {
-                        if (barang[i][j] != null) {
-                            System.out.println("Nama Barang: " + barang[i][j]);
-                            j++;
-                            System.out.println("Jumlah Barang: " + barang[i][j]);
-                            j++;
-                            System.out.println("Berat Barang (kg): " + barang[i][j]);
-                            System.out.println("========================");
-                        }
-                    }
-                }
-                break;
+                    System.out.print("Masukkan nama barang yang ingin dihapus: ");
+                    barang = sc.next();
+                    break;
                 case 3:
                     System.out.println("=================");
                     System.out.println("    Thank you   ");
@@ -80,8 +52,38 @@ public class manajemenPengirimanPaket {
                     }
                     break;
             }
-            
-        }
+          }
 
+          // hapus data barang
+          if(indexHapus >= 0) {
+            for(int i=indexHapus; i<index-1; i++) {
+              namaBarang[i] = namaBarang[i+1];
+              jmlBarang[i] = jmlBarang[i+1];
+              brtBarang[i] = brtBarang[i+1];
+            }
+            index--;
+          }
+          break;
+
+        case 3:
+          System.out.println("List barang: ");
+          
+          for(int i=0; i<index; i++){
+            System.out.println("Nama: "+namaBarang[i]);
+            System.out.println("Jumlah: "+jmlBarang[i]);
+            System.out.println("Berat: "+brtBarang[i]);
+          }
+          break;
+
+        case 4:
+          System.out.println("=================");
+          System.out.println("--Terima kasih--");
+          System.out.println("=================");
+          System.exit(0);
+
+        default:
+          System.out.println("Input tidak valid!");
+      }
     }
+  }
 }
