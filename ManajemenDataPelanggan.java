@@ -84,8 +84,33 @@ public class ManajemenDataPelanggan {
                     break;
 
                 case 4 :
-                System.out.println("===MENU UTAMA===");
+                System.out.print("Masukkan Nama Pelanggan yang akan dihapus  : ");
+                String deleteName = sc.nextLine();
+                int deleteIndex = -1;
+
+                for (int j =0; j < i; j++) {
+                    if (cusName[j].equals(deleteName)) {
+                        deleteIndex = j;
+                        break;
+                    }
+                }
+
+                if (deleteIndex != -1) {
+                    cusName[deleteIndex] = cusName[i - 1];
+                    cusAddress[deleteIndex] = cusAddress[i - 1];
+                    cusCont[deleteIndex] = cusCont[i - 1];
+                    i--;
+                    System.out.println("Data pelanggan berhasil dihapus.");
+                }
+                else {
+                    System.out.println("Nama Pelanggan tidak ditemukan.");
+                }
                 break;
+
+                case 5:
+                    System.out.println("===MENU UTAMA===");
+                    System.exit(0); 
+                    break;
 
                 default:
                     System.out.println("PILIHAN TIDAK VALID. Silakan coba lagi.");
