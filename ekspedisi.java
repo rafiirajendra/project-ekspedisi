@@ -10,54 +10,47 @@ public class ekspedisi {
 
     public static void main(String[] args) {
         String username, password, nik, user;
-        int pilihan ;
+        int pilihan;
 
-            switch (pilihan) {
-                case 1:
-                    System.out.println("==========================");
-                    System.out.println("=  WELCOME TO EKSPEDISI  =");
-                    System.out.println("==========================");
-                    System.out.print("LOGIN SEBAGAI : ");
-                    user = sc.nextLine();
-
-                    if (user.equalsIgnoreCase("karyawan")) {
-                        while (true) {
-                            System.out.print("Masukkan Username Anda                    : ");
-                            username = sc.nextLine();
-                            System.out.print("Masukkan Password Anda                    : ");
-                            password = sc.nextLine();
-                            System.out.print("Masukkan Nomor Identitas Karyawan Anda    : ");
-                            nik = sc.nextLine();
-                            if (username.equals("kary123") && password.equals("kary123") && nik.equals("20230123")) {
-                                System.out.println("LOGIN SUCCESSFUL");
-                                System.out.println("-----------------------------------");
-                                break;
-                            } else {
-                                System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
-                                System.out.println("-----------------------------------");
-                            }
-                        }
-                    } else if (user.equalsIgnoreCase("pelanggan")) {
-                        while (true) {
-                            System.out.print("Masukkan Username Anda                    : ");
-                            username = sc.nextLine();
-                            System.out.print("Masukkan Password Anda                    : ");
-                            password = sc.nextLine();
-                            if (username.equals("cus123") && password.equals("cus123")) {
-                                System.out.println("LOGIN SUCCESSFUL");
-                                break;
-                            } else {
-                                System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
-                            }
-                        }
-                    }
-                    break;
-
-                case 2:
-                    System.out.println("LOGOUT SUCCESS");
-                    break;
         do {
-            System.out.println("===MANAJEMEN DATA PELANGGAN===");
+            System.out.println("==========================");
+            System.out.println("=  WELCOME TO EKSPEDISI  =");
+            System.out.println("==========================");
+            System.out.print("LOGIN SEBAGAI : ");
+            user = sc.nextLine();
+
+            if (user.equalsIgnoreCase("karyawan")) {
+                while (true) {
+                    System.out.print("Masukkan Username Anda                    : ");
+                    username = sc.nextLine();
+                    System.out.print("Masukkan Password Anda                    : ");
+                    password = sc.nextLine();
+                    System.out.print("Masukkan Nomor Identitas Karyawan Anda    : ");
+                    nik = sc.nextLine();
+                    if (username.equals("kary123") && password.equals("kary123") && nik.equals("20230123")) {
+                        System.out.println("LOGIN SUCCESSFUL");
+                        System.out.println("-----------------------------------");
+                        break;
+                    } else {
+                        System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
+                        System.out.println("-----------------------------------");
+                    }
+                }
+            } else if (user.equalsIgnoreCase("pelanggan")) {
+                while (true) {
+                    System.out.print("Masukkan Username Anda                    : ");
+                    username = sc.nextLine();
+                    System.out.print("Masukkan Password Anda                    : ");
+                    password = sc.nextLine();
+                    if (username.equals("cus123") && password.equals("cus123")) {
+                        System.out.println("LOGIN SUCCESSFUL");
+                        break;
+                    } else {
+                        System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
+                    }
+                }
+            }
+
             System.out.println("1. Pelanggan Baru");
             System.out.println("2. Data Pelanggan");
             System.out.println("3. Edit Data Pelanggan");
@@ -66,9 +59,10 @@ public class ekspedisi {
             System.out.println("6. Analitik");
             System.out.println("7. Kembali ke Menu Utama");
             System.out.print("Pilih operasi (1/2/3/4/5/6/7): ");
-            int pilihanmenu  = sc.nextInt();
+            pilihan = sc.nextInt();
+            sc.nextLine(); // Menangkap karakter newline
 
-            switch (pilihanmenu) {
+            switch (pilihan) {
                 case 1:
                     System.out.println("===Pelanggan Baru===");
                     tambahPelanggan();
@@ -109,7 +103,7 @@ public class ekspedisi {
                     System.out.println("PILIHAN TIDAK VALID. Silakan coba lagi.");
                     break;
             }
-        } while (true) {
+        } while (true);
     }
 
     public static void tambahPelanggan() {
@@ -216,28 +210,13 @@ public class ekspedisi {
             return;
         }
 
-        int totalTransaksi = 0;
-        int pelangganReguler = 0;
-        int pelangganEkspres = 0;
-
-        for (int j = 0; j < i; j++) {
-            totalTransaksi += transactionHistory[j];
-            if (transactionHistory[j] > 5) {
-                pelangganReguler++;
-            } else {
-                pelangganEkspres++;
-            }
-        }
-
-        float rataRataTransaksi = (float) totalTransaksi / i;
-
-        System.out.println("\n====== ANALITIK ======");
-        System.out.println("Total Pelanggan: " + i);
-        System.out.println("Rata-rata Jumlah Transaksi: " + rataRataTransaksi);
-        System.out.println("Pelanggan Layanan Reguler : " + pelangganReguler);
-        System.out.println("Pelanggan Layanan Ekspres : " + pelangganEkspres);
+        // Logika analitik dapat ditambahkan di sini
+        System.out.println("=== ANALITIK PELANGGAN ===");
+        // ...
     }
 }
+
+
 import java.util.Scanner;
 
 public class manajemenPengirimanPaket {
