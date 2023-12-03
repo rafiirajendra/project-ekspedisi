@@ -70,8 +70,17 @@ public class ekspedisi {
         System.out.println("==========================");
         System.out.println("=  WELCOME TO EKSPEDISI  =");
         System.out.println("==========================");
-        System.out.print("LOGIN SEBAGAI (karyawan/pelanggan): ");
-        user = sc.nextLine();
+        
+
+        while (true) {
+            System.out.print("LOGIN SEBAGAI (karyawan/pelanggan): ");
+            user = sc.nextLine();
+            if (user.equalsIgnoreCase("karyawan") || user.equalsIgnoreCase("pelanggan")) {
+                break;
+            } else {
+                System.out.println("USER TIDAK VALID! (silakan masukkan 'karyawan' atau 'pelanggan')");
+            }
+        }
 
         if (user.equalsIgnoreCase("karyawan")) {
             while (true) {
@@ -186,7 +195,6 @@ public class ekspedisi {
                         boolean nameFound = false;
     
                         for (int j = 0; j < i; j++) {
-                            for (int k = 0; k < i; k++) {
                                 if (cusData[j][0].equals(searchName)) {
                                     nameFound = true;
                                     System.out.println("Nama Pengirim             : " +cusData[j][0]);
@@ -196,7 +204,6 @@ public class ekspedisi {
                                     System.out.println("Nomor Telephone Penerima  : " +cusData[j][4]);
                                     System.out.println("Lokasi Tujuan Pengiriman  : " +cusData[j][5]);
                                 }
-                            }
                         }
                         if (!nameFound) {
                             System.out.println("Nama Pelanggan tidak ditemukan.");
@@ -283,20 +290,63 @@ public class ekspedisi {
         }
 
     // fitur biaya pengiriman
-    public static void BiayaPengiriman(){
+    public static void BiayaPengiriman() {
         Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("==============================");
+            System.out.println("=   Program Biaya Pengiriman  =");
+            System.out.println("==============================");
+    
+            System.out.println("1. Biaya Pengiriman");
+            System.out.println("2. Resi Pengiriman");
+            System.out.println("3. Keluar");
+            System.out.print("Pilih menu (1/2/3): ");
+            int pilihanMenu = sc.nextInt();
+            sc.nextLine(); // Membersihkan newline
+
+            switch (pilihanMenu) {
+                case 1:
+                    menuBiayaPengiriman(sc);
+                    break;
+                case 2:
+                    menuResiPengiriman();
+                    break;
+                case 3:
+                    System.out.println("Terima kasih. Program selesai.");
+                    System.exit(0);
+                default:
+                    System.out.println("Pilihan tidak valid. Silakan coba lagi.");
+            }
+        }
+    }
+
+    public static void menuBiayaPengiriman(Scanner sc) {
         int biayaKm = 4000, biayaBrt = 5000;
         double beratBarang, biayaPengiriman;
-        
-        System.out.println("Masukkan jarak (dalam km): ");
-        lokasiTujuan(j);         
-        System.out.println("jarak " +jarakPengiriman[j]); 
 
-        System.out.println("Masukkan berat barang (dalam kg): ");
-        beratBarang = sc.nextFloat();
+        System.out.println("==============================");
+        System.out.println("=   Program Biaya Pengiriman  =");
+        System.out.println("==============================");
 
-        System.out.println("Pilih jenis layanan (reguler/ekspres): ");
+        System.out.print("Masukkan jarak pengiriman (dalam km): ");
+        System.out.print("Masukkan Nama Pelanggan yang ingin ditampilkan  : ");
+        String searchName = sc.nextLine();
+        boolean nameFound = false;
+    
+        for (int j = 0; j < i; j++) {
+            if (cusData[j][0].equals(searchName)) {
+                nameFound = true;
+                lokasiTujuan(j);         
+                System.out.println("jarak             : " +jarakPengiriman[j]);
+                }
+        }
+        System.out.print("Masukkan berat barang (dalam kg): ");
+        beratBarang = sc.nextDouble();
+        System.out.print("Pilih jenis layanan (reguler/ekspres): ");
         String jenisLayanan = sc.next();
+
+        System.out.println("\nMenghitung biaya pengiriman...");
 
         biayaPengiriman = jarakPengiriman[j] * biayaKm + beratBarang * biayaBrt;
 
@@ -311,19 +361,60 @@ public class ekspedisi {
         } else {
             biayaPengiriman *= 1.5;  // ini pajak tarif tambahan untuk jarang yang lebih jauh 
         }
+
         double biayaReguler = biayaPengiriman;
+        double biayaEkspres = biayaPengiriman *= 1.5;
 
-        double biayaEkspres = biayaPengiriman *= 1.5; //pajak 
+        System.out.println("=== Hasil Perhitungan ===");
+        System.out.println("Jarak Pengiriman   : " + jarakPengiriman + " km");
+        System.out.println("Berat Barang       : " + beratBarang + " kg");
+        System.out.println("Jenis Layanan      : " + jenisLayanan);
 
-        if (jenisLayanan.equals("reguler")) {
-            System.out.println("Biaya pengiriman reguler adalah: " + biayaReguler);
-    
+        if (jenisLayanan.equalsIgnoreCase("reguler")) {
+            System.out.println("\nBiaya Pengiriman (Reguler) : Rp" + biayaReguler);
+        } else if (jenisLayanan.equalsIgnoreCase("ekspres")) {
+            System.out.println("Biaya Pengiriman (Ekspres) : Rp" + biayaEkspres);
         } else {
-            System.out.println("Biaya pengiriman ekspres adalah: " + biayaEkspres);
-       
+            System.out.println("Jenis layanan tidak valid.");
+        }
+
+        System.out.println("\nTerima kasih telah menggunakan program biaya pengiriman.");
+    }
+
+    public static void menuResiPengiriman() {
+        // Menampilkan nomor resi yang dihasilkan
+        String nomorResi = generateNomorResi();
+        System.out.println("=== Resi Pengiriman ===");
+        System.out.println("Nomor Resi         : " + nomorResi);
+
+        // Meminta pengguna untuk memasukkan nomor resi
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Masukkan nomor resi yang ingin dicek: ");
+        String inputNomorResi = scanner.nextLine();
+
+        // Memeriksa nomor resi yang dimasukkan sesuai dengan nomor resi yang dihasilkan
+        if (validateNomorResi(inputNomorResi, nomorResi)) {
+            System.out.println("Nomor resi valid.");
+        } else {
+            System.out.println("Nomor resi tidak valid.");
         }
     }
 
+    // Fungsi untuk menghasilkan nomor resi secara acak
+    static String generateNomorResi() {
+        Random random = new Random();
+        // Menghasilkan nomor resi dengan panjang 6 karakter
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            sb.append(random.nextInt(10)); // Menambahkan digit acak dari 0 hingga 9
+        }
+        return sb.toString();
+    }
+
+    // Fungsi untuk memvalidasi nomor resi 
+    static boolean validateNomorResi(String inputNomorResi, String nomorResi) {
+        return inputNomorResi.equals(nomorResi);
+    }    
     // fitur manajemen pengiriman paket
     public static void manajemenPengirimanPaket() {
 
