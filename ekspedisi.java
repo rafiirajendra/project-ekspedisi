@@ -70,44 +70,46 @@ public class ekspedisi {
         System.out.println("==========================");
         System.out.println("=  WELCOME TO EKSPEDISI  =");
         System.out.println("==========================");
-        System.out.print("LOGIN SEBAGAI (karyawan/pelanggan): ");
-        user = sc.nextLine();
-
-        if (user.equalsIgnoreCase("karyawan")) {
-            while (true) {
-                System.out.print("Masukkan Username Anda                    : ");
-                username = sc.nextLine();
-                System.out.print("Masukkan Password Anda                    : ");
-                password = sc.nextLine();
-                System.out.print("Masukkan Nomor Identitas Karyawan Anda    : ");
-                nik = sc.nextLine();
-                if (username.equals("kary123") && password.equals("kary123") && nik.equals("20230123")) {
-                    System.out.println("LOGIN SUCCESSFUL");
-                    menuUtama();
-                    break;
-                } else {
-                    System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
+        while (true) {
+            System.out.print("LOGIN SEBAGAI (karyawan/pelanggan): ");
+            user = sc.nextLine();
+    
+            if (user.equalsIgnoreCase("karyawan")) {
+                while (true) {
+                    System.out.print("Masukkan Username Anda                    : ");
+                    username = sc.nextLine();
+                    System.out.print("Masukkan Password Anda                    : ");
+                    password = sc.nextLine();
+                    System.out.print("Masukkan Nomor Identitas Karyawan Anda    : ");
+                    nik = sc.nextLine();
+                    if (username.equals("kary123") && password.equals("kary123") && nik.equals("20230123")) {
+                        System.out.println("LOGIN SUCCESSFUL");
+                        menuUtama();
+                        break;
+                    } else {
+                        System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
+                    }
                 }
             }
-        }
-        else if (user.equalsIgnoreCase("pelanggan")) {
-            while (true) {
-                System.out.print("Masukkan Username Anda : ");
-                username = sc.nextLine();
-                System.out.print("Masukkan Password Anda : ");
-                password = sc.nextLine();
-                if (username.equals("cus123") && password.equals("cus123")) {
-                    System.out.println("LOGIN SUCCESSFUL");
-                    pelacakanUtkPelanggan();
-                    logout();
-                    break;
-                } else {
-                    System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
+            else if (user.equalsIgnoreCase("pelanggan")) {
+                while (true) {
+                    System.out.print("Masukkan Username Anda : ");
+                    username = sc.nextLine();
+                    System.out.print("Masukkan Password Anda : ");
+                    password = sc.nextLine();
+                    if (username.equals("cus123") && password.equals("cus123")) {
+                        System.out.println("LOGIN SUCCESSFUL");
+                        pelacakanUtkPelanggan();
+                        logout();
+                        break;
+                    } else {
+                        System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
+                    }
                 }
             }
-        }
-        else {
-            System.out.println("Pengguna yang dimasukkan tidak valid. Masukkan 'karyawan' atau 'pelanggan'.");
+            else {
+                System.out.println("Pengguna yang dimasukkan tidak valid. Masukkan 'karyawan' atau 'pelanggan'.");
+            }
         }
     }
         
@@ -186,16 +188,14 @@ public class ekspedisi {
                         boolean nameFound = false;
     
                         for (int j = 0; j < i; j++) {
-                            for (int k = 0; k < i; k++) {
-                                if (cusData[j][0].equals(searchName)) {
-                                    nameFound = true;
-                                    System.out.println("Nama Pengirim             : " +cusData[j][0]);
-                                    System.out.println("Alamat Pengirim           : " +cusData[j][1]);
-                                    System.out.println("Nomor Telephone Pengirim  : " +cusData[j][2]);
-                                    System.out.println("Nama Penerima             : " +cusData[j][3]);
-                                    System.out.println("Nomor Telephone Penerima  : " +cusData[j][4]);
-                                    System.out.println("Lokasi Tujuan Pengiriman  : " +cusData[j][5]);
-                                }
+                            if (cusData[j][0].equals(searchName)) {
+                                nameFound = true;
+                                System.out.println("Nama Pengirim             : " +cusData[j][0]);
+                                System.out.println("Alamat Pengirim           : " +cusData[j][1]);
+                                System.out.println("Nomor Telephone Pengirim  : " +cusData[j][2]);
+                                System.out.println("Nama Penerima             : " +cusData[j][3]);
+                                System.out.println("Nomor Telephone Penerima  : " +cusData[j][4]);
+                                System.out.println("Lokasi Tujuan Pengiriman  : " +cusData[j][5]);
                             }
                         }
                         if (!nameFound) {
