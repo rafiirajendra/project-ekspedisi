@@ -1,198 +1,168 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class nyobak2 {
+public class ekspedisi {
     static String[][] cusData = new String[100][6];
     static int i = 0;
+    static int j = 0;
     static int[] transactionHistory = new int[100];
+    static double[] jarakPengiriman = new double[100];
 
     public static void main(String[] args) {
-        menuUtama();
+        loginKaryawan();
     }
 
     public static void menuUtama() {
         Scanner sc = new Scanner(System.in);
         int pilihan;
-        String role;
-
-        System.out.println("===WELCOME TO EKSPEDISI===");
-        System.out.println("LOGIN SEBAGAI");
-        role = sc.nextLine();
-
-        if (role.equalsIgnoreCase("karyawan")) {
             while (true) {
                 System.out.println("===MENU UTAMA===");
-                System.out.println("1. Login Karyawan");
-                System.out.println("2. Manajemen Data Pelanggan");
-                System.out.println("3. Biaya Pengiriman");
-                System.out.println("4. Manajemen Pengiriman Paket");
-                System.out.println("5. Manajemen Armada");
-                System.out.println("6. Pelacakan");
-                System.out.println("7. Tampilkan Analitik");
-                System.out.println("8. Logout");
+                System.out.println("1. Manajemen Data Pelanggan");
+                System.out.println("2. Biaya Pengiriman");
+                System.out.println("3. Manajemen Pengiriman Paket");
+                System.out.println("4. Manajemen Armada");
+                System.out.println("5. Pelacakan");
+                System.out.println("6. Tampilkan Analitik");
+                System.out.println("7. Logout");
+                System.out.println("8. Exit");
                 System.out.print("Pilih operasi (1/2/3/4/5/6/7/8): ");
                 pilihan = sc.nextInt();
                 sc.nextLine();
 
                 switch (pilihan) {
                     case 1:
-                        loginKaryawan();
-                        break;
-                    case 2:
                         ManajemenDataPelanggan();
                         break;
-                    case 3:
+                    case 2:
                         BiayaPengiriman();
                         break;
-                    case 4:
+                    case 3:
                         manajemenPengirimanPaket();
                         break;
-                    case 5:
+                    case 4:
                         manajemenArmada();
                         break;
-                    case 6:
-                        pelacakan();
+                    case 5:
+                        pelacakanUtkKaryawan();
                         break;
-                    case 7:
+                    case 6:
                         tampilkanAnalitik(transactionHistory);
                         break;
-                    case 8:
+                    case 7:
                         logout();
-                        return;
-                    default:
-                        System.out.println("Pilihan tidak valid. Silakan coba lagi.");
                         break;
-                }
-            }
-        } else if (role.equalsIgnoreCase("pelanggan")) {
-            while (true) {
-                System.out.println("===MENU UTAMA===");
-                System.out.println("6. Pelacakan");
-                System.out.print("Pilih operasi (6): ");
-                pilihan = sc.nextInt();
-                sc.nextLine();
-
-                switch (pilihan) {
-                    case 6:
-                        pelacakan();
+                    case 8:
+                        exit();
                         break;
                     default:
                         System.out.println("Pilihan tidak valid. Silakan coba lagi.");
                         break;
                 }
             }
-        } else {
-            System.out.println("USER TIDAK VALID! (Silakan masukkan 'karyawan' atau 'pelanggan')");
         }
-    }
 
     
     // fitur login
     public static void loginKaryawan() {
         Scanner sc = new Scanner(System.in);
+        String username, password, nik, user;
+        
+        System.out.println("==========================");
+        System.out.println("=  WELCOME TO EKSPEDISI  =");
+        System.out.println("==========================");
+        System.out.print("LOGIN SEBAGAI (karyawan/pelanggan): ");
+        user = sc.nextLine();
 
-        String user;
-
-        System.out.println("===WELCOME TO EKSPEDISI===");
-
-        while (true) {
-            System.out.println("LOGIN SEBAGAI");
-            user = sc.nextLine();
-            if (user.equalsIgnoreCase("karyawan") || user.equalsIgnoreCase("pelanggan")) {
-                break;
-            } else {
-                System.out.println("USER TIDAK VALID! (silakan masukkan 'karyawan' atau 'pelanggan')");
-            }
-        }
         if (user.equalsIgnoreCase("karyawan")) {
             while (true) {
                 System.out.print("Masukkan Username Anda                    : ");
-                String username = sc.nextLine();
+                username = sc.nextLine();
                 System.out.print("Masukkan Password Anda                    : ");
-                String password = sc.nextLine();
+                password = sc.nextLine();
                 System.out.print("Masukkan Nomor Identitas Karyawan Anda    : ");
-                String nik = sc.nextLine();
-
+                nik = sc.nextLine();
                 if (username.equals("kary123") && password.equals("kary123") && nik.equals("20230123")) {
                     System.out.println("LOGIN SUCCESSFUL");
+                    menuUtama();
                     break;
                 } else {
-                    System.out.println("LOGIN FAILED. Isi kembali dengan data yang benar!");
+                    System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
                 }
             }
         }
         else if (user.equalsIgnoreCase("pelanggan")) {
             while (true) {
-                System.out.print("Masukkan Username Anda                    : ");
-                String username = sc.nextLine();
-                System.out.print("Masukkan Password Anda                    : ");
-                String password = sc.nextLine();
-
+                System.out.print("Masukkan Username Anda : ");
+                username = sc.nextLine();
+                System.out.print("Masukkan Password Anda : ");
+                password = sc.nextLine();
                 if (username.equals("cus123") && password.equals("cus123")) {
                     System.out.println("LOGIN SUCCESSFUL");
+                    pelacakanUtkPelanggan();
+                    logout();
                     break;
                 } else {
-                    System.out.println("LOGIN FAILED. Isi kembali dengan data yang benar!");
+                    System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
                 }
-           
             }
         }
+        else {
+            System.out.println("Pengguna yang dimasukkan tidak valid. Masukkan 'karyawan' atau 'pelanggan'.");
+        }
     }
+        
 
     // fitur manajemen data pelanggan
-    public static void ManajemenDataPelanggan(){
-        public static void pelanggan() {
-            static double [] jarakPengiriman = new double[100];
-            Scanner sc = new Scanner(System.in);
-            System.out.print("Masukkan Nama Pengirim               : ");
-            cusData[i][0] = sc.nextLine();
-            System.out.print("Masukkan Alamat pengirim             : ");
-            cusData[i][1] = sc.nextLine();
-            System.out.print("Masukkan Nomor Telephone Pengirim    : ");
-            cusData[i][2]= sc.nextLine();
-            System.out.print("Masukkan Nama Penerima               : ");
-            cusData[i][3] = sc.nextLine();
-            System.out.print("Masukkan Nomor Telephone Penerima    : ");
-            cusData[i][4] = sc.nextLine();
-            System.out.println("Opsi Lokasi:");
-            System.out.println("1. Kab. Banyuwangi  6. Kab. Jember");
-            System.out.println("2. Kab. Tuban       7. Kab. Lamongan");
-            System.out.println("3. Kab. Pasuruan    8. Kab. Blitar");
-            System.out.println("4. Kota Madiun      9. Kota Batu");
-            System.out.println("5. Kab. Ngawi       10. Kota Surabaya");
-            System.out.print("Pilih Lokasi Tujuan Pengiriman (contoh: Kota Batu)  : ");
-            cusData[i][5] = sc.nextLine();
-            lokasiTujuan(j);
-            i++;
+    public static void pelanggan() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Masukkan Nama Pengirim               : ");
+        cusData[i][0] = sc.nextLine();
+        System.out.print("Masukkan Alamat pengirim             : ");
+        cusData[i][1] = sc.nextLine();
+        System.out.print("Masukkan Nomor Telephone Pengirim    : ");
+        cusData[i][2]= sc.nextLine();
+        System.out.print("Masukkan Nama Penerima               : ");
+        cusData[i][3] = sc.nextLine();
+        System.out.print("Masukkan Nomor Telephone Penerima    : ");
+        cusData[i][4] = sc.nextLine();
+        System.out.println("Opsi Lokasi:");
+        System.out.println("1. Kab. Banyuwangi  6. Kab. Jember");
+        System.out.println("2. Kab. Tuban       7. Kab. Lamongan");
+        System.out.println("3. Kab. Pasuruan    8. Kab. Blitar");
+        System.out.println("4. Kota Madiun      9. Kota Batu");
+        System.out.println("5. Kab. Ngawi       10. Kota Surabaya");
+        System.out.print("Pilih Lokasi Tujuan Pengiriman (contoh: Kota Batu)  : ");
+        cusData[i][5] = sc.nextLine();
+        lokasiTujuan(j);
+        i++;
+    }
+    public static void lokasiTujuan(int j) {
+        if (cusData[j][5].equalsIgnoreCase("Kab. Banyuwangi")) {
+            jarakPengiriman[j] = 309;
+        } else if (cusData[j][5].equalsIgnoreCase("Kab. Tuban")) {
+            jarakPengiriman[j] = 190;
+        } else if (cusData[j][5].equalsIgnoreCase("Kab. Pasuruan")) {
+            jarakPengiriman[j] = 43.8;
+        } else if (cusData[j][5].equalsIgnoreCase("Kota Madiun")) {
+            jarakPengiriman[j] = 233;
+        } else if (cusData[j][5].equalsIgnoreCase("Kab. Ngawi")) {
+            jarakPengiriman[j] = 262;
+        } else if (cusData[j][5].equalsIgnoreCase("Kab. Jember")) {
+            jarakPengiriman[j] = 199;
+        } else if (cusData[j][5].equalsIgnoreCase("Kab. Lamongan")) {
+            jarakPengiriman[j] = 147;
+        } else if (cusData[j][5].equalsIgnoreCase("Kab. Blitar")) {
+            jarakPengiriman[j] = 68.1;
+        } else if (cusData[j][5].equalsIgnoreCase("Kota Batu")) {
+            jarakPengiriman[j] = 17.3;
+        } else if (cusData[j][5].equalsIgnoreCase("Kota Surabaya")) {
+            jarakPengiriman[j] = 94.6;
         }
-    
-        public static void lokasiTujuan(int j) {
-            if (cusData[j][5].equalsIgnoreCase("Kab. Banyuwangi")) {
-                jarakPengiriman[j] = 309;
-            } else if (cusData[j][5].equalsIgnoreCase("Kab. Tuban")) {
-                jarakPengiriman[j] = 190;
-            } else if (cusData[j][5].equalsIgnoreCase("Kab. Pasuruan")) {
-                jarakPengiriman[j] = 43.8;
-            } else if (cusData[j][5].equalsIgnoreCase("Kota Madiun")) {
-                jarakPengiriman[j] = 233;
-            } else if (cusData[j][5].equalsIgnoreCase("Kab. Ngawi")) {
-                jarakPengiriman[j] = 262;
-            } else if (cusData[j][5].equalsIgnoreCase("Kab. Jember")) {
-                jarakPengiriman[j] = 199;
-            } else if (cusData[j][5].equalsIgnoreCase("Kab. Lamongan")) {
-                jarakPengiriman[j] = 147;
-            } else if (cusData[j][5].equalsIgnoreCase("Kab. Blitar")) {
-                jarakPengiriman[j] = 68.1;
-            } else if (cusData[j][5].equalsIgnoreCase("Kota Batu")) {
-                jarakPengiriman[j] = 17.3;
-            } else if (cusData[j][5].equalsIgnoreCase("Kota Surabaya")) {
-                jarakPengiriman[j] = 94.6;
-            } 
+    } 
+    public static void ManajemenDataPelanggan(){
+        Scanner sc = new Scanner(System.in);
+        int pilihan;
         
-            Scanner sc = new Scanner(System.in);
-            int pilihan;
-            
-    
             while (true) {
                 System.out.println("===MANAJEMEN DATA PELANGGAN===");
                 System.out.println("1. Pelanggan Baru");
@@ -225,8 +195,6 @@ public class nyobak2 {
                                     System.out.println("Nama Penerima             : " +cusData[j][3]);
                                     System.out.println("Nomor Telephone Penerima  : " +cusData[j][4]);
                                     System.out.println("Lokasi Tujuan Pengiriman  : " +cusData[j][5]);
-                                    // lokasiTujuan(j);         
-                                    // System.out.println("jarak " +jarakPengiriman[j]);        (ditampilkan di biaya pengiriman)
                                 }
                             }
                         }
@@ -304,8 +272,8 @@ public class nyobak2 {
                         break;
     
                     case 5:
-                        System.out.println("===MENU UTAMA===");
-                        System.exit(0);
+                        menuUtama();
+                        break;
     
                     default:
                         System.out.println("PILIHAN TIDAK VALID. Silakan coba lagi.");
@@ -313,14 +281,16 @@ public class nyobak2 {
                 }
             }
         }
+
     // fitur biaya pengiriman
     public static void BiayaPengiriman(){
         Scanner sc = new Scanner(System.in);
         int biayaKm = 4000, biayaBrt = 5000;
-        float jarakPengiriman, beratBarang, biayaPengiriman;
+        double beratBarang, biayaPengiriman;
         
         System.out.println("Masukkan jarak (dalam km): ");
-        jarakPengiriman = sc.nextFloat();
+        lokasiTujuan(j);         
+        System.out.println("jarak " +jarakPengiriman[j]); 
 
         System.out.println("Masukkan berat barang (dalam kg): ");
         beratBarang = sc.nextFloat();
@@ -328,22 +298,22 @@ public class nyobak2 {
         System.out.println("Pilih jenis layanan (reguler/ekspres): ");
         String jenisLayanan = sc.next();
 
-        biayaPengiriman = jarakPengiriman * biayaKm + beratBarang * biayaBrt;
+        biayaPengiriman = jarakPengiriman[j] * biayaKm + beratBarang * biayaBrt;
 
-        if (jarakPengiriman <= 10) {
+        if (jarakPengiriman[j] <= 10) {
             if (beratBarang <= 5) {
                 biayaPengiriman *= 0.8;  // ini merupakan pajak tarif pengiriman jarak kurang dari 10 km 
             }
-        } else if (jarakPengiriman > 10 && jarakPengiriman <= 50) {
+        } else if (jarakPengiriman[j] > 10 && jarakPengiriman[j] <= 50) {
             if (beratBarang > 5) {
                 biayaPengiriman *= 1.2;  // ini pajak tarif pengiriman untuk jarak untuk jarak lebih dari 10 km hingga kurang lebih dari 50
             }
         } else {
             biayaPengiriman *= 1.5;  // ini pajak tarif tambahan untuk jarang yang lebih jauh 
         }
-        float biayaReguler = biayaPengiriman;
+        double biayaReguler = biayaPengiriman;
 
-        float biayaEkspres = biayaPengiriman *= 1.5; //pajak 
+        double biayaEkspres = biayaPengiriman *= 1.5; //pajak 
 
         if (jenisLayanan.equals("reguler")) {
             System.out.println("Biaya pengiriman reguler adalah: " + biayaReguler);
@@ -355,42 +325,86 @@ public class nyobak2 {
     }
 
     // fitur manajemen pengiriman paket
-    public static void manajemenPengirimanPaket(){
-        Scanner sc = new Scanner(System.in);
-        int biayaKm = 4000, biayaBrt = 5000;
-        float jarakPengiriman, beratBarang, biayaPengiriman;
-        
-        System.out.println("Masukkan jarak (dalam km): ");
-        jarakPengiriman = sc.nextFloat();
+    public static void manajemenPengirimanPaket() {
 
-        System.out.println("Masukkan berat barang (dalam kg): ");
-        beratBarang = sc.nextFloat();
+        String Abarang;
+        int jmlhbarang;
+        float brtBarang;
+        String next;
 
-        System.out.println("Pilih jenis layanan (reguler/ekspres): ");
-        String jenisLayanan = sc.next();
+       Scanner sc = new Scanner(System.in);
 
-        biayaPengiriman = jarakPengiriman * biayaKm + beratBarang * biayaBrt;
+       String[][] barang = new String[10][10];
 
-        if (jarakPengiriman <= 10) {
-            if (beratBarang <= 5) {
-                biayaPengiriman *= 0.8;  // ini merupakan pajak tarif pengiriman jarak kurang dari 10 km 
+        while (true) {
+            System.out.println("====================");
+            System.out.println("    Pilih menu  ");
+            System.out.println("====================");
+            System.out.println("1. Tambah Barang");
+            System.out.println("2. Tampilkan barang");
+            System.out.println("3. Kembali ke Menu Utama");
+            System.out.print("Pilih angka 1/2/3: ");
+
+           int pilihan = sc.nextInt();
+
+            switch (pilihan) {
+                case 1:
+                do {
+                    System.out.print("Masukkan nama barang: ");
+                    Abarang = sc.next();
+                    System.out.print("Masukkan jumlah barang: ");
+                    jmlhbarang = sc.nextInt();
+                    System.out.print("Masukkan berat barang(dalam kg): ");
+                    brtBarang = sc.nextFloat();
+                    sc.nextLine();
+
+                    for (int i = 0; i < barang.length; i++) {
+                      if (barang[i][0] == null) {
+                          barang[i][0] = Abarang;
+                          barang[i][1] = String.valueOf(jmlhbarang);
+                          barang[i][2] = String.valueOf(brtBarang);
+                          break;
+                      }
+                  }
+
+                    System.out.print("Input barang lagi? (y/n)");
+                    next = sc.nextLine();
+                } while (next.equalsIgnoreCase("y"));
+                    break;
+                case 2:
+                System.out.println("========================");
+                System.out.println("Daftar barang: ");
+                for (int i = 0; i < barang.length; i++) {
+                    for (int j = 0; j < barang[i].length; j++) {
+                        if (barang[i][j] != null) {
+                            System.out.println("Nama Barang: " + barang[i][j]);
+                            j++;
+                            System.out.println("Jumlah Barang: " + barang[i][j]);
+                            j++;
+                            System.out.println("Berat Barang (kg): " + barang[i][j]);
+                            System.out.println("========================");
+                        }
+                    }
+                }
+                break;
+                case 3:
+                    System.out.println("=================");
+                    System.out.println("    Thank you   ");
+                    System.out.println("=================");
+                    menuUtama();
+                default:
+                    System.out.println("Inputan anda tidak valid");
+                    System.out.print("Apakah Anda ingin memasukkan angka lagi (Y/N)? ");
+                    String input = sc.next();
+                    if (input.equalsIgnoreCase("N")) {
+                        System.out.println("=================");
+                        System.out.println("    Thank you   ");
+                        System.out.println("=================");
+                        System.exit(0);
+                    }
+                    break;
             }
-        } else if (jarakPengiriman > 10 && jarakPengiriman <= 50) {
-            if (beratBarang > 5) {
-                biayaPengiriman *= 1.2;  // ini pajak tarif pengiriman untuk jarak untuk jarak lebih dari 10 km hingga kurang lebih dari 50
-            }
-        } else {
-            biayaPengiriman *= 1.5;  // ini pajak tarif tambahan untuk jarang yang lebih jauh 
-        }
-        float biayaReguler = biayaPengiriman;
-
-        float biayaEkspres = biayaPengiriman *= 1.5; //pajak 
-
-        if (jenisLayanan.equals("reguler")) {
-            System.out.println("Biaya pengiriman reguler adalah: " + biayaReguler);
-    
-        } else {
-            System.out.println("Biaya pengiriman ekspres adalah: " + biayaEkspres);
+            
         }
     }
 
@@ -416,8 +430,40 @@ public class nyobak2 {
     }
 
     // fitur pelacakan
-    public static void pelacakan(){
+
+    public static void pelacakanUtkPelanggan() {
+        System.out.println("===================");
+        System.out.println("= PELACAKAN PAKET =");
+        System.out.println("===================");
+        Scanner sc = new Scanner(System.in);
         inputResi();
+
+        while (true) {
+        System.out.print("Ingin melacak paket yang lain? (y/n): ");
+        String pilih = sc.nextLine();
+            if (pilih.equalsIgnoreCase("y")) {
+                inputResi();
+            } else {
+                logout();
+            }
+        }
+    }
+    public static void pelacakanUtkKaryawan(){
+        System.out.println("===================");
+        System.out.println("= PELACAKAN PAKET =");
+        System.out.println("===================");
+        Scanner sc = new Scanner(System.in);
+        inputResi();
+
+        while (true) {
+        System.out.print("Ingin melacak paket yang lain? (y/n): ");
+        String pilih = sc.nextLine();
+            if (pilih.equalsIgnoreCase("y")) {
+                inputResi();
+            } else {
+                menuUtama();
+            }
+        }
     }
 
     private static void inputResi() {
@@ -466,37 +512,32 @@ public class nyobak2 {
     
 
     // logout
-    public static void logout(){
-    Scanner input = new Scanner(System.in);
-        int pilihan;
-        while (true) {
-            System.out.println("1. Login");
-            System.out.println("2. Logout");
-            System.out.println("3. Exit");
-            System.out.print("Pilih operasi (1/2/3) : ");
-            pilihan = input.nextInt();
-            input.nextLine();
-
-            switch (pilihan) {
-                case 1 :
-                //fitur login
-                break;
-
-                case 2 :
-                System.out.println("LOGOUT SUCCESS");
-                break;
-
-                case 3 :
-                System.out.print("Apakah Anda yakin ingin keluar dari Ekspedisi? ");
-                String jawab = input.nextLine();
-                    if (jawab.equalsIgnoreCase("YA")) {
-                        System.out.println("Terimakasih telah menggunakan Ekspedisi kami.");
-                        System.exit(0);
-                    }
-                break;
-
+    public static void logout() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Apakah Anda ingin Logout? (Y/y)");
+        char jawab = sc.nextLine().charAt(0);
+        if (Character.toLowerCase(jawab) == 'y') {
+            System.out.println("LOGOUT SUCCESSFUL");
+            System.out.println("Apakah Anda ingin login lagi? (Y/y)");
+            jawab = sc.nextLine().charAt(0);
+            if (Character.toLowerCase(jawab) == 'y') {
+                loginKaryawan();
+            } else {
+                exit();
             }
         }
+    }
 
+    //exit
+    public static void exit() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Apakah Anda yakin ingin keluar dari Ekspedisi? (Y/y)");
+        char jawab = sc.nextLine().charAt(0);
+        if (Character.toLowerCase(jawab) == 'y') {
+            System.out.println("Terimakasih telah menggunakan Ekspedisi kami.");
+            System.exit(0);
+        } else {
+            System.out.println("Kembali ke menu.");
+        }
     }
 }
