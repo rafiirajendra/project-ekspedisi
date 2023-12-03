@@ -71,7 +71,7 @@ public class ekspedisi {
         System.out.println("=  WELCOME TO EKSPEDISI  =");
         System.out.println("==========================");
         while (true) {
-            System.out.print("LOGIN SEBAGAI (karyawan/pelanggan): ");
+            System.out.println("LOGIN SEBAGAI (karyawan/pelanggan): ");
             user = sc.nextLine();
     
             if (user.equalsIgnoreCase("karyawan")) {
