@@ -284,15 +284,25 @@ public class ekspedisi {
 
     public static void BiayaPengiriman() {
         Scanner sc = new Scanner(System.in);
-        int biayaKm = 4000, biayaBrt = 5000;
-        float jarakPengiriman, beratBarang, biayaPengiriman;
+        int biayaKm = 500, biayaBrt = 100;
+        double beratBarang, biayaPengiriman;
 
         System.out.println("==============================");
         System.out.println("=   Program Biaya Pengiriman  =");
         System.out.println("==============================");
 
-        System.out.print("Masukkan jarak pengiriman (dalam km): ");
-        jarakPengiriman = sc.nextFloat();
+        System.out.print("Masukkan Nama Pelanggan yang ingin ditampilkan jarak Km : ");
+        String searchName = sc.nextLine();
+        boolean nameFound = false;
+    
+        for (int j = 0; j < i; j++) {
+            if (cusData[j][0].equals(searchName)) {
+                nameFound = true;
+                lokasiTujuan(j);         
+                System.out.println("jarak             : " +jarakPengiriman[j]);
+                }
+        }
+
         System.out.print("Masukkan berat barang (dalam kg): ");
         beratBarang = sc.nextFloat();
         System.out.print("Pilih jenis layanan (reguler/ekspres): ");
@@ -300,13 +310,13 @@ public class ekspedisi {
 
         System.out.println("\nMenghitung biaya pengiriman...");
 
-        biayaPengiriman = jarakPengiriman * biayaKm + beratBarang * biayaBrt;
+        biayaPengiriman = jarakPengiriman[j] * biayaKm + beratBarang * biayaBrt;
 
-        if (jarakPengiriman <= 10) {
+        if (jarakPengiriman[j] <= 10) {
             if (beratBarang <= 5) {
                 biayaPengiriman *= 0.8;
             }
-        } else if (jarakPengiriman > 10 && jarakPengiriman <= 50) {
+        } else if (jarakPengiriman[j] > 10 && jarakPengiriman[j] <= 50) {
             if (beratBarang > 5) {
                 biayaPengiriman *= 1.2;
             }
@@ -440,7 +450,7 @@ public class ekspedisi {
                         System.out.println("=================");
                         System.out.println("    Thank you   ");
                         System.out.println("=================");
-                        System.exit(0);
+                        menuUtama();
                     }
                     break;
             }
