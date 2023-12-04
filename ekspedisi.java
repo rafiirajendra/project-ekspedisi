@@ -282,47 +282,87 @@ public class ekspedisi {
             }
         }
 
-    // fitur biaya pengiriman
-    public static void BiayaPengiriman(){
+    public static void BiayaPengiriman() {
         Scanner sc = new Scanner(System.in);
         int biayaKm = 4000, biayaBrt = 5000;
-        double beratBarang, biayaPengiriman;
-        
-        System.out.println("Masukkan jarak (dalam km): ");
-        lokasiTujuan(j);         
-        System.out.println("jarak " +jarakPengiriman[j]); 
+        float jarakPengiriman, beratBarang, biayaPengiriman;
 
-        System.out.println("Masukkan berat barang (dalam kg): ");
+        System.out.println("==============================");
+        System.out.println("=   Program Biaya Pengiriman  =");
+        System.out.println("==============================");
+
+        System.out.print("Masukkan jarak pengiriman (dalam km): ");
+        jarakPengiriman = sc.nextFloat();
+        System.out.print("Masukkan berat barang (dalam kg): ");
         beratBarang = sc.nextFloat();
-
-        System.out.println("Pilih jenis layanan (reguler/ekspres): ");
+        System.out.print("Pilih jenis layanan (reguler/ekspres): ");
         String jenisLayanan = sc.next();
 
-        biayaPengiriman = jarakPengiriman[j] * biayaKm + beratBarang * biayaBrt;
+        System.out.println("\nMenghitung biaya pengiriman...");
 
-        if (jarakPengiriman[j] <= 10) {
+        biayaPengiriman = jarakPengiriman * biayaKm + beratBarang * biayaBrt;
+
+        if (jarakPengiriman <= 10) {
             if (beratBarang <= 5) {
-                biayaPengiriman *= 0.8;  // ini merupakan pajak tarif pengiriman jarak kurang dari 10 km 
+                biayaPengiriman *= 0.8;
             }
-        } else if (jarakPengiriman[j] > 10 && jarakPengiriman[j] <= 50) {
+        } else if (jarakPengiriman > 10 && jarakPengiriman <= 50) {
             if (beratBarang > 5) {
-                biayaPengiriman *= 1.2;  // ini pajak tarif pengiriman untuk jarak untuk jarak lebih dari 10 km hingga kurang lebih dari 50
+                biayaPengiriman *= 1.2;
             }
         } else {
-            biayaPengiriman *= 1.5;  // ini pajak tarif tambahan untuk jarang yang lebih jauh 
+            biayaPengiriman *= 1.5;
         }
+
         double biayaReguler = biayaPengiriman;
+        double biayaEkspres = biayaPengiriman * 1.5;
 
-        double biayaEkspres = biayaPengiriman *= 1.5; //pajak 
+        System.out.println("=== Hasil Perhitungan ===");
+        System.out.println("Jarak Pengiriman   : " + jarakPengiriman + " km");
+        System.out.println("Berat Barang       : " + beratBarang + " kg");
+        System.out.println("Jenis Layanan      : " + jenisLayanan);
 
-        if (jenisLayanan.equals("reguler")) {
-            System.out.println("Biaya pengiriman reguler adalah: " + biayaReguler);
-    
+        if (jenisLayanan.equalsIgnoreCase("reguler")) {
+            System.out.println("\nBiaya Pengiriman (Reguler) : Rp" + biayaReguler);
         } else {
-            System.out.println("Biaya pengiriman ekspres adalah: " + biayaEkspres);
-       
+            System.out.println("Jenis layanan tidak valid.");
         }
+
+        // Menampilkan nomor resi yang dihasilkan
+        String nomorResi = generateNomorResi();
+        System.out.println("Nomor Resi: " + nomorResi);
+
+        // Meminta pengguna untuk memasukkan nomor resi
+        System.out.println("Masukkan nomor resi:");
+        String inputNomorResi = sc.next();
+
+        // Memeriksa nomor resi yang dimasukkan sesuai dengan nomor resi yang dihasilkan
+        if (validateNomorResi(inputNomorResi, nomorResi)) {
+            System.out.println("Nomor resi valid.");
+        } else {
+            System.out.println("Nomor resi tidak valid.");
+        }
+
+        System.out.println("\nTerima kasih telah menggunakan program biaya pengiriman.");
     }
+
+    // Fungsi untuk menghasilkan nomor resi secara acak
+    static String generateNomorResi() {
+        Random random = new Random();
+        // Menghasilkan nomor resi dengan panjang 6 karakter
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            sb.append(random.nextInt(10)); // Menambahkan digit acak dari 0 hingga 9
+        }
+        return sb.toString();
+    }
+
+    // Fungsi untuk memvalidasi nomor resi 
+    static boolean validateNomorResi(String inputNomorResi, String nomorResi) {
+        return inputNomorResi.equals(nomorResi);
+    }
+    
+    
 
     // fitur manajemen pengiriman paket
     public static void manajemenPengirimanPaket() {
