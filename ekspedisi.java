@@ -16,7 +16,9 @@ public class ekspedisi {
         Scanner sc = new Scanner(System.in);
         int pilihan;
             while (true) {
-                System.out.println("===MENU UTAMA===");
+                System.out.println("==========================");
+                System.out.println("=       MENU UTAMA       =");
+                System.out.println("==========================");
                 System.out.println("1. Manajemen Data Pelanggan");
                 System.out.println("2. Biaya Pengiriman");
                 System.out.println("3. Manajemen Pengiriman Paket");
@@ -166,7 +168,9 @@ public class ekspedisi {
         int pilihan;
         
             while (true) {
-                System.out.println("===MANAJEMEN DATA PELANGGAN===");
+                System.out.println("=============================");
+                System.out.println("= MANAJEMEN DATA PELANGGAN  =");
+                System.out.println("=============================");
                 System.out.println("1. Pelanggan Baru");
                 System.out.println("2. Data Pelanggan");
                 System.out.println("3. Edit Data Pelanggan");
@@ -182,7 +186,9 @@ public class ekspedisi {
                         break;
                         
                     case 2:
-                        System.out.println("===Data Pelanggan===");
+                        System.out.println("==========================");
+                        System.out.println("=     Data Pelanggan     =");
+                        System.out.println("==========================");
                         System.out.print("Masukkan Nama Pelanggan yang ingin ditampilkan  : ");
                         String searchName = sc.nextLine();
                         boolean nameFound = false;
@@ -207,6 +213,7 @@ public class ekspedisi {
                         if (i == 0) {
                             System.out.println("Data pelanggan belum diisi.");
                         } else {
+
                             System.out.println("===Edit Data Pelanggan===");
                             System.out.print("Masukkan Nama Pelanggan yang akan diubah  : ");
                             String changeName = sc.nextLine();
@@ -327,7 +334,9 @@ public class ekspedisi {
         double biayaReguler = biayaPengiriman;
         double biayaEkspres = biayaPengiriman * 1.5;
 
-        System.out.println("=== Hasil Perhitungan ===");
+        System.out.println("==========================");
+        System.out.println("=   Hasil Perhitungan    =");
+        System.out.println("==========================");
         System.out.println("Jarak Pengiriman   : " + jarakPengiriman + " km");
         System.out.println("Berat Barang       : " + beratBarang + " kg");
         System.out.println("Jenis Layanan      : " + jenisLayanan);
@@ -384,11 +393,11 @@ public class ekspedisi {
 
        Scanner sc = new Scanner(System.in);
 
-       String[][] barang = new String[10][10];
+       String[][] barang = new String[10][3];
 
         while (true) {
             System.out.println("====================");
-            System.out.println("    Pilih menu  ");
+            System.out.println("     Pilih menu     ");
             System.out.println("====================");
             System.out.println("1. Tambah Barang");
             System.out.println("2. Tampilkan barang");
@@ -532,13 +541,9 @@ public class ekspedisi {
     }
         // fitur laporan dan analitik
         public static void tampilkanAnalitik(int[] transactionHistory) {
-        int i = transactionHistory.length;
-        if (i == 0) {
-            System.out.println("Data pelanggan belum diisi.");
-            return;
-        }
+       
 
-        int totalTransaksi = 0;
+        int totalTransaksi = i ;
         int pelangganReguler = 0;
         int pelangganEkspres = 0;
 
@@ -551,10 +556,12 @@ public class ekspedisi {
             }
         }
 
-        float rataRataTransaksi = (float) totalTransaksi / i;
-
-        System.out.println("\n====== ANALITIK ======");
-        System.out.println("Total Pelanggan: " + i);
+        float rataRataTransaksi = (float) totalTransaksi / cusData.length ;
+        
+        System.out.println("==========================");
+        System.out.println("=       ANALITIK         =");
+        System.out.println("==========================");
+        System.out.println("Total Pelanggan: " + totalTransaksi);
         System.out.println("Rata-rata Jumlah Transaksi: " + rataRataTransaksi);
         System.out.println("Pelanggan Layanan Reguler : " + pelangganReguler);
         System.out.println("Pelanggan Layanan Ekspres : " + pelangganEkspres);
