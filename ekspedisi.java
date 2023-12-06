@@ -7,6 +7,7 @@ public class ekspedisi {
     static int j = 0;
     static int[] transactionHistory = new int[100];
     static double[] jarakPengiriman = new double[100];
+    static String[] nomorResiArray = new String [100];
 
     public static void main(String[] args) {
         loginKaryawan();
@@ -337,13 +338,16 @@ public class ekspedisi {
         System.out.println("==========================");
         System.out.println("=   Hasil Perhitungan    =");
         System.out.println("==========================");
-        System.out.println("Jarak Pengiriman   : " + jarakPengiriman + " km");
+        System.out.println("Jarak Pengiriman   : " + jarakPengiriman[j] + " km");
         System.out.println("Berat Barang       : " + beratBarang + " kg");
         System.out.println("Jenis Layanan      : " + jenisLayanan);
 
         if (jenisLayanan.equalsIgnoreCase("reguler")) {
             System.out.println("\nBiaya Pengiriman (Reguler) : Rp" + biayaReguler);
-        } else {
+        } else if (jenisLayanan.equalsIgnoreCase("ekspres")) 
+            System.out.println("\nBiaya Pengiriman (Ekspres) : Rp" + biayaEkspres);
+
+         else {
             System.out.println("Jenis layanan tidak valid.");
         }
 
@@ -356,7 +360,8 @@ public class ekspedisi {
         String inputNomorResi = sc.next();
 
         // Memeriksa nomor resi yang dimasukkan sesuai dengan nomor resi yang dihasilkan
-        if (validateNomorResi(inputNomorResi, nomorResi)) {
+        String[] nomorResiArray = {nomorResi}; // Menyimpan nomor resi yang dihasilkan dalam array
+        if (validateNomorResi(inputNomorResi, nomorResiArray)) {
             System.out.println("Nomor resi valid.");
         } else {
             System.out.println("Nomor resi tidak valid.");
@@ -376,12 +381,15 @@ public class ekspedisi {
         return sb.toString();
     }
 
-    // Fungsi untuk memvalidasi nomor resi 
-    static boolean validateNomorResi(String inputNomorResi, String nomorResi) {
-        return inputNomorResi.equals(nomorResi);
+    // Fungsi untuk memvalidasi nomor resi
+    static boolean validateNomorResi(String inputNomorResi, String[] nomorResiArray) {
+        for (String resi : nomorResiArray) {
+            if (resi.equals(inputNomorResi)) {
+                return true;
+            }
+        }
+        return false;
     }
-    
-    
 
     // fitur manajemen pengiriman paket
     public static void manajemenPengirimanPaket() {
@@ -393,12 +401,13 @@ public class ekspedisi {
 
        Scanner sc = new Scanner(System.in);
 
-       String[][] barang = new String[10][3];
+       String[][] barang = new String[100][3];
 
         while (true) {
-            System.out.println("====================");
-            System.out.println("     Pilih menu     ");
-            System.out.println("====================");
+            System.out.println("==========================");
+            System.out.println("=    Manajemen Armada    =");
+            System.out.println("==========================");
+            System.out.println("------ Pilih menu -----");
             System.out.println("1. Tambah Barang");
             System.out.println("2. Tampilkan barang");
             System.out.println("3. Kembali ke Menu Utama");
@@ -469,6 +478,9 @@ public class ekspedisi {
 
     // fitur manajemen armada
     public static void manajemenArmada(){
+        System.out.println("==========================");
+        System.out.println("=    Manajemen Armada    =");
+        System.out.println("==========================");
         Scanner input = new Scanner(System.in);
 
         System.out.print("Masukkan jumlah barang: ");
@@ -527,8 +539,10 @@ public class ekspedisi {
 
     private static void inputResi() {
         Scanner sc = new Scanner(System.in);
+        validateNomorResi(null, nomorResiArray);
         System.out.print("Masukkan nomor resi: ");
         int resi = sc.nextInt();
+        
         String statusPaket = lacakStatusPaket(resi);
         System.out.println("Status Paket: " + statusPaket);
     }
@@ -566,7 +580,6 @@ public class ekspedisi {
         System.out.println("Pelanggan Layanan Reguler : " + pelangganReguler);
         System.out.println("Pelanggan Layanan Ekspres : " + pelangganEkspres);
     }
-    
 
     // logout
     public static void logout() {
