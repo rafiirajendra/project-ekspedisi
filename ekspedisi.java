@@ -459,11 +459,11 @@ public class ekspedisi {
         System.out.println("==========================");
 
         System.out.print("Masukkan jumlah barang: ");
-        int jumlahBarang = input.nextInt();
+        int jumlahBarang = sc.nextInt();
 
         for (int i = 1; i <= jumlahBarang; i++) {
             System.out.print("Masukkan berat barang ke-" + i + " (dalam kilogram): ");
-            float beratBarang = input.nextFloat();
+            float beratBarang = sc.nextFloat();
 
             for (int j = 1; j <= 1; j++) {
                 if (beratBarang >= 120) {
