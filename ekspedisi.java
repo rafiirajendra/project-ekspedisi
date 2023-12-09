@@ -8,6 +8,7 @@ public class ekspedisi {
     static int[] transactionHistory = new int[100];
     static double[] jarakPengiriman = new double[100];
     static String[] nomorResiArray = new String [100];
+    static String[] truk;
     static Scanner sc = new Scanner(System.in);
     static char jawab;
     public static void main(String[] args) {
@@ -302,11 +303,8 @@ public class ekspedisi {
 
         System.out.print("Masukkan Nama Pelanggan yang ingin ditampilkan jarak Km : ");
         String searchName = sc.nextLine();
-        boolean nameFound = false;
-    
         for (int j = 0; j < i; j++) {
             if (cusData[j][0].equals(searchName)) {
-                nameFound = true;
                 lokasiTujuan(j);         
                 System.out.println("jarak             : " +jarakPengiriman[j]);
                 }
@@ -358,11 +356,10 @@ public class ekspedisi {
 
         // Meminta pengguna untuk memasukkan nomor resi
         System.out.println("Masukkan nomor resi:");
-        String inputNomorResi = sc.next();
+        int inputNomorResi = sc.nextInt();
 
         // Memeriksa nomor resi yang dimasukkan sesuai dengan nomor resi yang dihasilkan
-        String[] nomorResiArray = {nomorResi}; // Menyimpan nomor resi yang dihasilkan dalam array
-        if (validateNomorResi(inputNomorResi, nomorResiArray)) {
+        if (validateNomorResi(inputNomorResi)) {
             System.out.println("Nomor resi valid.");
         } else {
             System.out.println("Nomor resi tidak valid.");
@@ -371,38 +368,18 @@ public class ekspedisi {
         System.out.println("\nTerima kasih telah menggunakan program biaya pengiriman.");
     }
 
-    // Fungsi untuk menghasilkan nomor resi secara acak
-    static String generateNomorResi() {
-        Random random = new Random();
-        // Menghasilkan nomor resi dengan panjang 6 karakter
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 6; i++) {
-            sb.append(random.nextInt(10)); // Menambahkan digit acak dari 0 hingga 9
-        }
-        return sb.toString();
-    }
-
-    // Fungsi untuk memvalidasi nomor resi
-    static boolean validateNomorResi(String inputNomorResi, String[] nomorResiArray) {
-        for (String resi : nomorResiArray) {
-            if (resi.equals(inputNomorResi)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
+    
     // fitur manajemen pengiriman paket
     public static void manajemenPengirimanPaket() {
         String Abarang, next;
         int jmlhbarang;
         float brtBarang;
         String[][] barang = new String[100][3];
-
+        
         while (true) {
-            System.out.println("==========================");
-            System.out.println("=    Manajemen Armada    =");
-            System.out.println("==========================");
+            System.out.println("================================");
+            System.out.println("=  Manajemen Pengiriman Paket  =");
+            System.out.println("================================");
             System.out.println("------ Pilih menu -----");
             System.out.println("1. Tambah Barang");
             System.out.println("2. Tampilkan barang");
@@ -430,7 +407,7 @@ public class ekspedisi {
                       }
                   }
 
-                    System.out.print("Input barang lagi? (y/n)");
+                  System.out.print("Input barang lagi? (y/n)");
                     next = sc.nextLine();
                 } while (next.equalsIgnoreCase("y"));
                     break;
@@ -466,23 +443,21 @@ public class ekspedisi {
                         menuUtama();
                     }
                     break;
-            }
+                }
             
         }
     }
 
     // fitur manajemen armada
     public static void manajemenArmada(){
-        System.out.println("==========================");
-        System.out.println("=    Manajemen Armada    =");
-        System.out.println("==========================");
+        Scanner input = new Scanner(System.in);
 
         System.out.print("Masukkan jumlah barang: ");
-        int jumlahBarang = sc.nextInt();
+        int jumlahBarang = input.nextInt();
 
         for (int i = 1; i <= jumlahBarang; i++) {
             System.out.print("Masukkan berat barang ke-" + i + " (dalam kilogram): ");
-            float beratBarang = sc.nextFloat();
+            float beratBarang = input.nextFloat();
 
             for (int j = 1; j <= 1; j++) {
                 if (beratBarang >= 120) {
@@ -495,13 +470,13 @@ public class ekspedisi {
     }
 
     // fitur pelacakan
-
+    
     public static void pelacakanUtkPelanggan() {
         System.out.println("===================");
         System.out.println("= PELACAKAN PAKET =");
         System.out.println("===================");
         inputResi();
-
+        
         while (true) {
         System.out.print("Ingin melacak paket yang lain? (y/n) ");
         jawab = sc.nextLine().charAt(0);
@@ -517,10 +492,10 @@ public class ekspedisi {
         System.out.println("= PELACAKAN PAKET =");
         System.out.println("===================");
         inputResi();
-
+        
         while (true) {
-        System.out.print("Ingin melacak paket yang lain? (y/n) ");
-        jawab = sc.nextLine().charAt(0);
+            System.out.print("Ingin melacak paket yang lain? (y/n) ");
+            jawab = sc.nextLine().charAt(0);
         if (Character.toLowerCase(jawab) == 'y') {
                 inputResi();
             } else if (Character.toLowerCase(jawab) == 'n') {
@@ -530,14 +505,45 @@ public class ekspedisi {
     }
 
     private static void inputResi() {
-        validateNomorResi(null, nomorResiArray);
-        System.out.print("Masukkan nomor resi: ");
-        int resi = sc.nextInt();
-        
-        String statusPaket = lacakStatusPaket(resi);
-        System.out.println("Status Paket: " + statusPaket);
+       Scanner sc = new Scanner(System.in);
+       boolean isResiValid = false;
+       int resi;
+
+       do {
+        System.out.println("Masukkan nomor resi: ");
+        resi = sc.nextInt();
+        isResiValid = validateNomorResi(resi);
+        if (!isResiValid) {
+            System.out.println("Nomor resi tidak valid.");
+        }
+    } while (!isResiValid);
+       String statusPaket = lacakStatusPaket(resi);
+       System.out.println("Status Paket: " + statusPaket);
     }
 
+    // Fungsi untuk menghasilkan nomor resi secara acak
+    static String generateNomorResi() {
+        Random random = new Random();
+        // Menghasilkan nomor resi dengan panjang 6 karakter
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            sb.append(random.nextInt(10)); // Menambahkan digit acak dari 0 hingga 9
+        }
+        String nomorResi = sb.toString();
+        nomorResiArray[i] = nomorResi;
+        return sb.toString();
+    }
+
+    // Fungsi untuk memvalidasi nomor resi
+    static boolean validateNomorResi(int resi2) {
+        for (String resi : nomorResiArray) {
+            if (resi != null && resi.equals(String.valueOf(resi2))) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private static String lacakStatusPaket(int resi) {
         String[] status = {"Proses pengiriman", "Paket sudah sampai"};
         Random random = new Random();
