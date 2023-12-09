@@ -17,10 +17,10 @@ public class ekspedisi {
 
     public static void menuUtama() {
         int pilihan;
-            while (true) {
-                System.out.println("==========================");
-                System.out.println("=       MENU UTAMA       =");
-                System.out.println("==========================");
+            do {
+                System.out.println("==============================");
+                System.out.println("=         MENU UTAMA         =");
+                System.out.println("==============================");
                 System.out.println("1. Manajemen Data Pelanggan");
                 System.out.println("2. Biaya Pengiriman");
                 System.out.println("3. Manajemen Pengiriman Paket");
@@ -29,7 +29,7 @@ public class ekspedisi {
                 System.out.println("6. Tampilkan Analitik");
                 System.out.println("7. Logout");
                 System.out.println("8. Exit");
-                System.out.print("Pilih operasi (1/2/3/4/5/6/7/8): ");
+                System.out.print("Pilih sub menu (1/2/3/4/5/6/7/8): ");
                 pilihan = sc.nextInt();
                 sc.nextLine();
 
@@ -53,17 +53,17 @@ public class ekspedisi {
                         tampilkanAnalitik(transactionHistory);
                         break;
                     case 7:
-                        logout();
+                        logoutKaryawan();
                         break;
                     case 8:
                         exit();
                         break;
                     default:
                         System.out.println("Pilihan tidak valid. Silakan coba lagi.");
-                        break;
-                    
+                        break;   
                 }
-            }
+            break;
+            } while (pilihan !=8);
         }
 
     
@@ -71,9 +71,9 @@ public class ekspedisi {
     public static void loginKaryawan() {
         String username, password, nik, user;
         
-        System.out.println("==========================");
-        System.out.println("=  WELCOME TO EKSPEDISI  =");
-        System.out.println("==========================");
+        System.out.println("====================================");
+        System.out.println("=       WELCOME TO EKSPEDISI       =");
+        System.out.println("====================================");
         while (true) {
             System.out.println("LOGIN SEBAGAI (karyawan/pelanggan): ");
             user = sc.nextLine();
@@ -108,7 +108,7 @@ public class ekspedisi {
                     if (username.equals("cus123") && password.equals("cus123")) {
                         System.out.println("LOGIN SUCCESSFUL\n");
                         pelacakanUtkPelanggan();
-                        logout();
+                        logoutPelanggan();
                         break;
                     } else {
                         System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
@@ -118,6 +118,7 @@ public class ekspedisi {
             else {
                 System.out.println("Pengguna yang dimasukkan tidak valid. Masukkan 'karyawan' atau 'pelanggan'.");
             }
+        break;
         }
     }
         
@@ -134,12 +135,15 @@ public class ekspedisi {
         cusData[i][3] = sc.nextLine();
         System.out.print("Masukkan Nomor Telephone Penerima    : ");
         cusData[i][4] = sc.nextLine();
-        System.out.println("Opsi Lokasi:");
-        System.out.println("1. Kab. Banyuwangi  6. Kab. Jember");
-        System.out.println("2. Kab. Tuban       7. Kab. Lamongan");
-        System.out.println("3. Kab. Pasuruan    8. Kab. Blitar");
-        System.out.println("4. Kota Madiun      9. Kota Batu");
-        System.out.println("5. Kab. Ngawi       10. Kota Surabaya");
+        System.out.println("===========================================");
+        System.out.println("|               Opsi Lokasi               |");
+        System.out.println("===========================================");
+        System.out.println("| 1. Kab. Banyuwangi | 6. Kab. Jember     |");
+        System.out.println("| 2. Kab. Tuban      | 7. Kab. Lamongan   |");
+        System.out.println("| 3. Kab. Pasuruan   | 8. Kab. Blitar     |");
+        System.out.println("| 4. Kota Madiun     | 9. Kota Batu       |");
+        System.out.println("| 5. Kab. Ngawi      | 10. Kota Surabaya  |");
+        System.out.println("===========================================");
         System.out.print("Pilih Lokasi Tujuan Pengiriman (contoh: Kota Batu)  : ");
         cusData[i][5] = sc.nextLine();
         lokasiTujuan(j);
@@ -241,13 +245,16 @@ public class ekspedisi {
                                 cusData[changeIndex][3] = sc.nextLine();
                                 System.out.print("Masukkan Nomor Telephone Penerima : ");
                                 cusData[changeIndex][4] = sc.nextLine();
-                                System.out.println("Opsi Lokasi:");
-                                System.out.println("1. Kab. Banyuwangi  6. Kab. Jember");
-                                System.out.println("2. Kab. Tuban       7. Kab. Lamongan");
-                                System.out.println("3. Kab. Pasuruan    8. Kab. Blitar");
-                                System.out.println("4. Kota Madiun      9. Kota Batu");
-                                System.out.println("5. Kab. Ngawi       10. Kota Surabaya");
-                                System.out.print("Pilih Lokasi Tujuan Pengiriman    : ");
+                                System.out.println("===========================================");
+                                System.out.println("|               Opsi Lokasi               |");
+                                System.out.println("===========================================");
+                                System.out.println("| 1. Kab. Banyuwangi | 6. Kab. Jember     |");
+                                System.out.println("| 2. Kab. Tuban      | 7. Kab. Lamongan   |");
+                                System.out.println("| 3. Kab. Pasuruan   | 8. Kab. Blitar     |");
+                                System.out.println("| 4. Kota Madiun     | 9. Kota Batu       |");
+                                System.out.println("| 5. Kab. Ngawi      | 10. Kota Surabaya  |");
+                                System.out.println("===========================================");
+                                System.out.print("Pilih Lokasi Tujuan Pengiriman (contoh: Kota Batu)  : ");
                                 cusData[changeIndex][5] = sc.nextLine();
                                 System.out.println("Data pelanggan berhasil diperbarui.");
                             } else {
@@ -297,19 +304,17 @@ public class ekspedisi {
         int biayaKm = 500, biayaBrt = 100;
         double beratBarang, biayaPengiriman;
 
-        System.out.println("==============================");
-        System.out.println("=   Program Biaya Pengiriman  =");
-        System.out.println("==============================");
-
-        System.out.print("Masukkan Nama Pelanggan yang ingin ditampilkan jarak Km : ");
+        System.out.println("================================");
+        System.out.println("=       Biaya Pengiriman       =");
+        System.out.println("================================");
+        System.out.print("Masukkan Nama Pelanggan untuk menampilkan jarak pengiriman: ");
         String searchName = sc.nextLine();
         for (int j = 0; j < i; j++) {
             if (cusData[j][0].equals(searchName)) {
                 lokasiTujuan(j);         
-                System.out.println("jarak             : " +jarakPengiriman[j]);
+                System.out.println("Jarak pengiriman                : " +jarakPengiriman[j]);
                 }
         }
-
         System.out.print("Masukkan berat barang (dalam kg): ");
         beratBarang = sc.nextFloat();
         System.out.print("Pilih jenis layanan (reguler/ekspres): ");
@@ -334,9 +339,8 @@ public class ekspedisi {
         double biayaReguler = biayaPengiriman;
         double biayaEkspres = biayaPengiriman * 1.5;
 
-        System.out.println("==========================");
-        System.out.println("=   Hasil Perhitungan    =");
-        System.out.println("==========================");
+        System.out.println("\n     Hasil Perhitungan     ");
+        System.out.println("*****************************");
         System.out.println("Jarak Pengiriman   : " + jarakPengiriman[j] + " km");
         System.out.println("Berat Barang       : " + beratBarang + " kg");
         System.out.println("Jenis Layanan      : " + jenisLayanan);
@@ -377,14 +381,14 @@ public class ekspedisi {
         String[][] barang = new String[100][3];
         
         while (true) {
-            System.out.println("================================");
-            System.out.println("=  Manajemen Pengiriman Paket  =");
-            System.out.println("================================");
+            System.out.println("==========================");
+            System.out.println("=    Manajemen Armada    =");
+            System.out.println("==========================");
             System.out.println("------ Pilih menu -----");
             System.out.println("1. Tambah Barang");
-            System.out.println("2. Tampilkan barang");
+            System.out.println("2. Tampilkan Barang");
             System.out.println("3. Kembali ke Menu Utama");
-            System.out.print("Pilih angka 1/2/3: ");
+            System.out.print("Pilih sub menu (1/2/3): ");
             int pilihan = sc.nextInt();
 
             switch (pilihan) {
@@ -429,7 +433,7 @@ public class ekspedisi {
                 break;
                 case 3:
                     System.out.println("=================");
-                    System.out.println("    Thank you   ");
+                    System.out.println("    Thank You   ");
                     System.out.println("=================");
                     menuUtama();
                 default:
@@ -438,7 +442,7 @@ public class ekspedisi {
                     String input = sc.next();
                     if (input.equalsIgnoreCase("N")) {
                         System.out.println("=================");
-                        System.out.println("    Thank you   ");
+                        System.out.println("    Thank You   ");
                         System.out.println("=================");
                         menuUtama();
                     }
@@ -450,7 +454,9 @@ public class ekspedisi {
 
     // fitur manajemen armada
     public static void manajemenArmada(){
-        Scanner input = new Scanner(System.in);
+        System.out.println("==========================");
+        System.out.println("=    Manajemen Armada    =");
+        System.out.println("==========================");
 
         System.out.print("Masukkan jumlah barang: ");
         int jumlahBarang = input.nextInt();
@@ -472,9 +478,9 @@ public class ekspedisi {
     // fitur pelacakan
     
     public static void pelacakanUtkPelanggan() {
-        System.out.println("===================");
-        System.out.println("= PELACAKAN PAKET =");
-        System.out.println("===================");
+        System.out.println("===========================");
+        System.out.println("=     PELACAKAN PAKET     =");
+        System.out.println("===========================");
         inputResi();
         
         while (true) {
@@ -483,14 +489,14 @@ public class ekspedisi {
         if (Character.toLowerCase(jawab) == 'y') {
                 inputResi();
             } else if (Character.toLowerCase(jawab) == 'n'){
-                logout();
+                logoutPelanggan();
             }
         }
     }
     public static void pelacakanUtkKaryawan(){
-        System.out.println("===================");
-        System.out.println("= PELACAKAN PAKET =");
-        System.out.println("===================");
+        System.out.println("===========================");
+        System.out.println("=     PELACAKAN PAKET     =");
+        System.out.println("===========================");
         inputResi();
         
         while (true) {
@@ -578,8 +584,25 @@ public class ekspedisi {
     }
 
     // logout
-    public static void logout() {
-        System.out.println("Apakah Anda ingin Logout? (y/n)");
+    public static void logoutKaryawan() {
+        System.out.print("Apakah Anda ingin logout? (y/n) ");
+        jawab = sc.nextLine().charAt(0);
+        if (Character.toLowerCase(jawab) == 'y') {
+            System.out.println("LOGOUT SUCCESSFUL");
+            System.out.print("Apakah Anda ingin login lagi? (y/n) ");
+            jawab = sc.nextLine().charAt(0);
+            if (Character.toLowerCase(jawab) == 'y') {
+                loginKaryawan();
+            } else if (Character.toLowerCase(jawab) == 'n') {
+                exit();
+            }
+        } else if (Character.toLowerCase(jawab) == 'n') {
+            menuUtama();
+        }
+    }
+
+    public static void logoutPelanggan() {
+        System.out.print("Apakah Anda ingin logout? (y/n) ");
         jawab = sc.nextLine().charAt(0);
         if (Character.toLowerCase(jawab) == 'y') {
             System.out.println("LOGOUT SUCCESSFUL");
@@ -590,18 +613,16 @@ public class ekspedisi {
             } else if (Character.toLowerCase(jawab) == 'n'){
                 exit();
             }
+        } else if (Character.toLowerCase(jawab) == 'n') {
+            pelacakanUtkPelanggan();
         }
     }
 
     //exit
     public static void exit() {
-        System.out.println("Apakah Anda yakin ingin keluar dari Ekspedisi? (y/n) ");
-        jawab = sc.nextLine().charAt(0);
-        if (Character.toLowerCase(jawab) == 'y') {
-            System.out.println("=============================================");
-            System.out.println("Terimakasih telah menggunakan Ekspedisi kami.");
-            System.out.println("=============================================");
-            System.exit(0);
-        } 
+        System.out.println("============================================");
+        System.out.println("Terimakasih telah menggunakan Ekspedisi kami");
+        System.out.println("============================================");
+        sc.close();
     }
 }
