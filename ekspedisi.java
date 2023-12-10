@@ -3,11 +3,12 @@ import java.util.Scanner;
 
 public class ekspedisi {
     static String[][] cusData = new String[100][6];
-    static int i = 0;
-    static int j = 0;
+    static String[][] barang = new String[100][3];
     static int[] transactionHistory = new int[100];
     static double[] jarakPengiriman = new double[100];
     static String[] nomorResiArray = new String [100];
+    static int i = 0;
+    static int j = 0;
     static String[] truk;
     static Scanner sc = new Scanner(System.in);
     static char jawab;
@@ -378,7 +379,6 @@ public class ekspedisi {
         String Abarang, next;
         int jmlhbarang;
         float brtBarang;
-        String[][] barang = new String[100][3];
         
         while (true) {
             System.out.println("==========================");
@@ -454,25 +454,93 @@ public class ekspedisi {
 
     // fitur manajemen armada
     public static void manajemenArmada(){
-        System.out.println("==========================");
-        System.out.println("=    Manajemen Armada    =");
-        System.out.println("==========================");
 
-        System.out.print("Masukkan jumlah barang: ");
-        int jumlahBarang = sc.nextInt();
+        while (true) {
+            System.out.println("==========================");
+            System.out.println("=    Manajemen Armada    =");
+            System.out.println("==========================");
+            System.out.println("Menu:");
+            System.out.println("1. Kirim paket");
+            System.out.println("2. Kembali ke menu utama");
 
-        for (int i = 1; i <= jumlahBarang; i++) {
-            System.out.print("Masukkan berat barang ke-" + i + " (dalam kilogram): ");
-            float beratBarang = sc.nextFloat();
+            System.out.print("Pilih menu (1/2): ");
+            int pilihan = sc.nextInt();
 
-            for (int j = 1; j <= 1; j++) {
-                if (beratBarang >= 120) {
-                    System.out.println("Barang ke-" + i + " dikirim menggunakan mobil");
-                } else {
-                    System.out.println("Barang ke-" + i + " dikirim menggunakan motor");
-                }
+            switch (pilihan) {
+                case 1:
+                    kirimPaket();
+                    break;
+                case 2:
+                    System.out.println("Terima kasih!");
+                    menuUtama();
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid. Silakan pilih kembali (1/2).");
+                    break;
             }
         }
+    }
+
+    public static void tampilkanArmada() {
+        truk = new String[] {"Truk A", "Truk B", "Truk C", "Truk D"};
+
+        System.out.println("Kendaraan yang tersedia:");
+        for (int i = 0; i < truk.length; i++) {
+            System.out.println((i+1) + ". " + truk[i]);
+        }
+    }
+
+    public static void kirimPaket() {
+        System.out.println("==========================");
+        System.out.println("=      Kirim Paket       =");
+        System.out.println("==========================");
+
+        System.out.println("Pilih armada untuk pengiriman:");
+        tampilkanArmada();
+        System.out.print("Masukkan pilihan armada (1-4): ");
+        int pilihanArmada = sc.nextInt();
+
+        switch (pilihanArmada) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                inputTruk();
+            break;
+            default:
+            System.out.println("Pilihan tidak valid.");
+            break;
+        }
+    }
+    
+    public static void inputTruk(){
+        System.out.print("Masukkan Nama Pelanggan yang ingin dimasukkan : ");
+        Scanner sc = new Scanner(System.in);
+        String searchName = sc.nextLine();
+        boolean nameFound = false;
+    
+            for (int j = 0; j < i; j++) {
+                if (cusData[j][0].equals(searchName)) {
+                    nameFound = true;
+                    System.out.println("Nama Pengirim             : " +cusData[j][0]);
+                    System.out.println("Alamat Pengirim           : " +cusData[j][1]);
+                    System.out.println("Nomor Telephone Pengirim  : " +cusData[j][2]);
+                    System.out.println("Nama Penerima             : " +cusData[j][3]);
+                    System.out.println("Nomor Telephone Penerima  : " +cusData[j][4]);
+                    System.out.println("Lokasi Tujuan Pengiriman  : " +cusData[j][5]);
+                        }
+                    }
+                    if (!nameFound) {
+                        System.out.println("Nama Pelanggan tidak ditemukan.");
+                    }
+        System.out.println("Ingin menambahkan lagi? (y/n)");
+        String input = sc.nextLine();
+        if (input.equalsIgnoreCase("y")) {
+            inputTruk();
+        } else {
+            kirimPaket();
+        }
+        sc.close();
     }
 
     // fitur pelacakan
@@ -510,7 +578,7 @@ public class ekspedisi {
         }
     }
 
-    private static void inputResi() {
+    public static void inputResi() {
        Scanner sc = new Scanner(System.in);
        boolean isResiValid = false;
        int resi;
@@ -525,6 +593,7 @@ public class ekspedisi {
     } while (!isResiValid);
        String statusPaket = lacakStatusPaket(resi);
        System.out.println("Status Paket: " + statusPaket);
+       sc.close();
     }
 
     // Fungsi untuk menghasilkan nomor resi secara acak
