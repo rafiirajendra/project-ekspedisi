@@ -354,23 +354,8 @@ public class ekspedisi {
          else {
             System.out.println("Jenis layanan tidak valid.");
         }
-
-        // Menampilkan nomor resi yang dihasilkan
-        String nomorResi = generateNomorResi();
-        System.out.println("Nomor Resi: " + nomorResi);
-
-        // Meminta pengguna untuk memasukkan nomor resi
-        System.out.println("Masukkan nomor resi:");
-        int inputNomorResi = sc.nextInt();
-
-        // Memeriksa nomor resi yang dimasukkan sesuai dengan nomor resi yang dihasilkan
-        if (validateNomorResi(inputNomorResi)) {
-            System.out.println("Nomor resi valid.");
-        } else {
-            System.out.println("Nomor resi tidak valid.");
-        }
-
-        System.out.println("\nTerima kasih telah menggunakan program biaya pengiriman.");
+        System.out.println("kembali ke Menu Utama......")
+         menuUtama();
     }
 
     
