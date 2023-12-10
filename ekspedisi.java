@@ -354,7 +354,7 @@ public class ekspedisi {
          else {
             System.out.println("Jenis layanan tidak valid.");
         }
-        System.out.println("kembali ke Menu Utama......")
+        System.out.println("kembali ke Menu Utama......");
          menuUtama();
     }
 
