@@ -318,9 +318,14 @@ public class ekspedisi {
         }
         System.out.print("Masukkan berat barang (dalam kg): ");
         beratBarang = sc.nextFloat();
-        System.out.print("Pilih jenis layanan (reguler/ekspres): ");
+        System.out.println("+===========================+");
+        System.out.println("=           note            =");
+        System.out.println("+===========================+");
+        System.out.println("| Reguler estimasi 3-4 hari |");
+        System.out.println("| Ekspres estimasi 1-3 hari |");
+        System.out.println("-----------------------------");
+        System.out.print("Pilih jenis layanan (Reguler/Ekspres): ");
         String jenisLayanan = sc.next();
-
         System.out.println("\nMenghitung biaya pengiriman...");
 
         biayaPengiriman = jarakPengiriman[j] * biayaKm + beratBarang * biayaBrt;
@@ -354,6 +359,10 @@ public class ekspedisi {
          else {
             System.out.println("Jenis layanan tidak valid.");
         }
+        
+        // Menampilkan nomor resi yang dihasilkan
+        String nomorResi = generateNomorResi();
+        System.out.println("Nomor Resi: " + nomorResi);
         System.out.println("kembali ke Menu Utama......");
          menuUtama();
     }
@@ -366,9 +375,9 @@ public class ekspedisi {
         float brtBarang;
         
         while (true) {
-            System.out.println("====================================");
-            System.out.println("=    Manajemen Pengiriman Paket    =");
-            System.out.println("====================================");
+            System.out.println("==========================");
+            System.out.println("=    Manajemen Armada    =");
+            System.out.println("==========================");
             System.out.println("------ Pilih menu -----");
             System.out.println("1. Tambah Barang");
             System.out.println("2. Tampilkan Barang");
@@ -521,9 +530,9 @@ public class ekspedisi {
         System.out.println("Ingin menambahkan lagi? (y/n)");
         String input = sc.nextLine();
         if (input.equalsIgnoreCase("y")) {
-            kirimPaket();
+            inputTruk();
         } else {
-            menuUtama();
+            kirimPaket();
         }
         sc.close();
     }
@@ -614,18 +623,6 @@ public class ekspedisi {
         public static void tampilkanAnalitik(int[] transactionHistory) {
 
         int totalTransaksi = i ;
-        int pelangganReguler = 0;
-        int pelangganEkspres = 0;
-
-        for (int j = 0; j < i; j++) {
-            totalTransaksi += transactionHistory[j];
-            if (transactionHistory[j] > 5) {
-                pelangganReguler++;
-            } else {
-                pelangganEkspres++;
-            }
-        }
-
         float rataRataTransaksi = (float) totalTransaksi / cusData.length ;
         
         System.out.println("==========================");
@@ -633,10 +630,9 @@ public class ekspedisi {
         System.out.println("==========================");
         System.out.println("Total Pelanggan: " + totalTransaksi);
         System.out.println("Rata-rata Jumlah Transaksi: " + rataRataTransaksi);
-        System.out.println("Pelanggan Layanan Reguler : " + pelangganReguler);
-        System.out.println("Pelanggan Layanan Ekspres : " + pelangganEkspres);
+    
+    
     }
-
     // logout
     public static void logoutKaryawan() {
         System.out.print("Apakah Anda ingin logout? (y/n) ");
