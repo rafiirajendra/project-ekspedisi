@@ -375,9 +375,9 @@ public class ekspedisi {
         float brtBarang;
         
         while (true) {
-            System.out.println("==========================");
-            System.out.println("=    Manajemen Armada    =");
-            System.out.println("==========================");
+            System.out.println("====================================");
+            System.out.println("=    Manajemen Pengiriman Paket    =");
+            System.out.println("====================================");
             System.out.println("------ Pilih menu -----");
             System.out.println("1. Tambah Barang");
             System.out.println("2. Tampilkan Barang");
