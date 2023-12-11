@@ -366,9 +366,9 @@ public class ekspedisi {
         float brtBarang;
         
         while (true) {
-            System.out.println("==========================");
-            System.out.println("=    Manajemen Armada    =");
-            System.out.println("==========================");
+            System.out.println("====================================");
+            System.out.println("=    Manajemen Pengiriman Paket    =");
+            System.out.println("====================================");
             System.out.println("------ Pilih menu -----");
             System.out.println("1. Tambah Barang");
             System.out.println("2. Tampilkan Barang");
@@ -521,9 +521,9 @@ public class ekspedisi {
         System.out.println("Ingin menambahkan lagi? (y/n)");
         String input = sc.nextLine();
         if (input.equalsIgnoreCase("y")) {
-            inputTruk();
-        } else {
             kirimPaket();
+        } else {
+            menuUtama();
         }
         sc.close();
     }
