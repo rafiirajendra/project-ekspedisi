@@ -375,12 +375,13 @@ public class ekspedisi {
             System.out.println("3. Kembali ke Menu Utama");
             System.out.print("Pilih sub menu (1/2/3): ");
             int pilihan = sc.nextInt();
+            sc.nextLine();
 
             switch (pilihan) {
                 case 1:
                 do {
                     System.out.print("Masukkan nama barang: ");
-                    Abarang = sc.next();
+                    Abarang = sc.nextLine();
                     System.out.print("Masukkan jumlah barang: ");
                     jmlhbarang = sc.nextInt();
                     System.out.print("Masukkan berat barang(dalam kg): ");
