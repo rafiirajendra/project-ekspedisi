@@ -306,7 +306,7 @@ public class ekspedisi {
         double beratBarang, biayaPengiriman;
 
         System.out.println("================================");
-        System.out.println("=       Biaya Pengiriman       =");
+        System.out.println("=       BIAYA PENGIRIMAN       =");
         System.out.println("================================");
         System.out.print("Masukkan Nama Pelanggan untuk menampilkan jarak pengiriman: ");
         String searchName = sc.nextLine();
@@ -376,7 +376,7 @@ public class ekspedisi {
         
         while (true) {
             System.out.println("====================================");
-            System.out.println("=    Manajemen Pengiriman Paket    =");
+            System.out.println("=    MANAJEMEN PENGIRIMAN PAKET    =");
             System.out.println("====================================");
             System.out.println("------ Pilih menu -----");
             System.out.println("1. Tambah Barang");
@@ -452,7 +452,7 @@ public class ekspedisi {
 
         while (true) {
             System.out.println("==========================");
-            System.out.println("=    Manajemen Armada    =");
+            System.out.println("=    MANAJEMEN ARMADA    =");
             System.out.println("==========================");
             System.out.println("Menu:");
             System.out.println("1. Kirim paket");
@@ -533,7 +533,7 @@ public class ekspedisi {
         if (input.equalsIgnoreCase("y")) {
             inputTruk();
         } else {
-            kirimPaket();
+            manajemenArmada();
         }
         sc.close();
     }
