@@ -3,20 +3,25 @@ import java.util.Scanner;
 
 public class ekspedisi {
     static String[][] cusData = new String[100][6];
-    static int i = 0;
-    static int j = 0;
+    static String[][] barang = new String[100][3];
     static int[] transactionHistory = new int[100];
     static double[] jarakPengiriman = new double[100];
-
+    static String[] nomorResiArray = new String [100];
+    static int i = 0;
+    static int j = 0;
+    static String[] truk;
+    static Scanner sc = new Scanner(System.in);
+    static char jawab;
     public static void main(String[] args) {
         loginKaryawan();
     }
 
     public static void menuUtama() {
-        Scanner sc = new Scanner(System.in);
         int pilihan;
-            while (true) {
-                System.out.println("===MENU UTAMA===");
+            do {
+                System.out.println("==============================");
+                System.out.println("=         MENU UTAMA         =");
+                System.out.println("==============================");
                 System.out.println("1. Manajemen Data Pelanggan");
                 System.out.println("2. Biaya Pengiriman");
                 System.out.println("3. Manajemen Pengiriman Paket");
@@ -25,7 +30,7 @@ public class ekspedisi {
                 System.out.println("6. Tampilkan Analitik");
                 System.out.println("7. Logout");
                 System.out.println("8. Exit");
-                System.out.print("Pilih operasi (1/2/3/4/5/6/7/8): ");
+                System.out.print("Pilih sub menu (1/2/3/4/5/6/7/8): ");
                 pilihan = sc.nextInt();
                 sc.nextLine();
 
@@ -49,81 +54,78 @@ public class ekspedisi {
                         tampilkanAnalitik(transactionHistory);
                         break;
                     case 7:
-                        logout();
+                        logoutKaryawan();
                         break;
                     case 8:
                         exit();
                         break;
                     default:
                         System.out.println("Pilihan tidak valid. Silakan coba lagi.");
-                        break;
+                        break;   
                 }
-            }
+            break;
+            } while (pilihan !=8);
         }
 
     
     // fitur login
     public static void loginKaryawan() {
-        Scanner sc = new Scanner(System.in);
         String username, password, nik, user;
         
-        System.out.println("==========================");
-        System.out.println("=  WELCOME TO EKSPEDISI  =");
-        System.out.println("==========================");
-        
-
+        System.out.println("====================================");
+        System.out.println("=       WELCOME TO EKSPEDISI       =");
+        System.out.println("====================================");
         while (true) {
-            System.out.print("LOGIN SEBAGAI (karyawan/pelanggan): ");
+            System.out.println("LOGIN SEBAGAI (karyawan/pelanggan): ");
             user = sc.nextLine();
-            if (user.equalsIgnoreCase("karyawan") || user.equalsIgnoreCase("pelanggan")) {
-                break;
-            } else {
-                System.out.println("USER TIDAK VALID! (silakan masukkan 'karyawan' atau 'pelanggan')");
-            }
-        }
-
-        if (user.equalsIgnoreCase("karyawan")) {
-            while (true) {
-                System.out.print("Masukkan Username Anda                    : ");
-                username = sc.nextLine();
-                System.out.print("Masukkan Password Anda                    : ");
-                password = sc.nextLine();
-                System.out.print("Masukkan Nomor Identitas Karyawan Anda    : ");
-                nik = sc.nextLine();
-                if (username.equals("kary123") && password.equals("kary123") && nik.equals("20230123")) {
-                    System.out.println("LOGIN SUCCESSFUL");
-                    menuUtama();
-                    break;
-                } else {
-                    System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
+    
+            if (user.equalsIgnoreCase("karyawan")) {
+                while (true) {
+                    System.out.println("----------------------------------------------------");
+                    System.out.print("Masukkan Username Anda                    : ");
+                    username = sc.nextLine();
+                    System.out.print("Masukkan Password Anda                    : ");
+                    password = sc.nextLine();
+                    System.out.print("Masukkan Nomor Identitas Karyawan Anda    : ");
+                    nik = sc.nextLine();
+                    System.out.println("----------------------------------------------------");
+                    if (username.equals("kary123") && password.equals("kary123") && nik.equals("20230123")) {
+                        System.out.println("LOGIN SUCCESSFUL\n");
+                        menuUtama();
+                        break;
+                    } else {
+                        System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
+                    }
                 }
             }
-        }
-        else if (user.equalsIgnoreCase("pelanggan")) {
-            while (true) {
-                System.out.print("Masukkan Username Anda : ");
-                username = sc.nextLine();
-                System.out.print("Masukkan Password Anda : ");
-                password = sc.nextLine();
-                if (username.equals("cus123") && password.equals("cus123")) {
-                    System.out.println("LOGIN SUCCESSFUL");
-                    pelacakanUtkPelanggan();
-                    logout();
-                    break;
-                } else {
-                    System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
+            else if (user.equalsIgnoreCase("pelanggan")) {
+                while (true) {
+                    System.out.println("-------------------------------");
+                    System.out.print("Masukkan Username Anda : ");
+                    username = sc.nextLine();
+                    System.out.print("Masukkan Password Anda : ");
+                    password = sc.nextLine();
+                    System.out.println("-------------------------------");
+                    if (username.equals("cus123") && password.equals("cus123")) {
+                        System.out.println("LOGIN SUCCESSFUL\n");
+                        pelacakanUtkPelanggan();
+                        logoutPelanggan();
+                        break;
+                    } else {
+                        System.out.println("LOGIN FAILED! Masukkan kembali dengan data yang benar.");
+                    }
                 }
             }
-        }
-        else {
-            System.out.println("Pengguna yang dimasukkan tidak valid. Masukkan 'karyawan' atau 'pelanggan'.");
+            else {
+                System.out.println("Pengguna yang dimasukkan tidak valid. Masukkan 'karyawan' atau 'pelanggan'.");
+            }
+        break;
         }
     }
         
 
     // fitur manajemen data pelanggan
     public static void pelanggan() {
-        Scanner sc = new Scanner(System.in);
         System.out.print("Masukkan Nama Pengirim               : ");
         cusData[i][0] = sc.nextLine();
         System.out.print("Masukkan Alamat pengirim             : ");
@@ -134,12 +136,15 @@ public class ekspedisi {
         cusData[i][3] = sc.nextLine();
         System.out.print("Masukkan Nomor Telephone Penerima    : ");
         cusData[i][4] = sc.nextLine();
-        System.out.println("Opsi Lokasi:");
-        System.out.println("1. Kab. Banyuwangi  6. Kab. Jember");
-        System.out.println("2. Kab. Tuban       7. Kab. Lamongan");
-        System.out.println("3. Kab. Pasuruan    8. Kab. Blitar");
-        System.out.println("4. Kota Madiun      9. Kota Batu");
-        System.out.println("5. Kab. Ngawi       10. Kota Surabaya");
+        System.out.println("===========================================");
+        System.out.println("|               Opsi Lokasi               |");
+        System.out.println("===========================================");
+        System.out.println("| 1. Kab. Banyuwangi | 6. Kab. Jember     |");
+        System.out.println("| 2. Kab. Tuban      | 7. Kab. Lamongan   |");
+        System.out.println("| 3. Kab. Pasuruan   | 8. Kab. Blitar     |");
+        System.out.println("| 4. Kota Madiun     | 9. Kota Batu       |");
+        System.out.println("| 5. Kab. Ngawi      | 10. Kota Surabaya  |");
+        System.out.println("===========================================");
         System.out.print("Pilih Lokasi Tujuan Pengiriman (contoh: Kota Batu)  : ");
         cusData[i][5] = sc.nextLine();
         lokasiTujuan(j);
@@ -169,11 +174,12 @@ public class ekspedisi {
         }
     } 
     public static void ManajemenDataPelanggan(){
-        Scanner sc = new Scanner(System.in);
         int pilihan;
         
             while (true) {
-                System.out.println("===MANAJEMEN DATA PELANGGAN===");
+                System.out.println("=============================");
+                System.out.println("= MANAJEMEN DATA PELANGGAN  =");
+                System.out.println("=============================");
                 System.out.println("1. Pelanggan Baru");
                 System.out.println("2. Data Pelanggan");
                 System.out.println("3. Edit Data Pelanggan");
@@ -189,21 +195,23 @@ public class ekspedisi {
                         break;
                         
                     case 2:
-                        System.out.println("===Data Pelanggan===");
+                        System.out.println("==========================");
+                        System.out.println("=     Data Pelanggan     =");
+                        System.out.println("==========================");
                         System.out.print("Masukkan Nama Pelanggan yang ingin ditampilkan  : ");
                         String searchName = sc.nextLine();
                         boolean nameFound = false;
     
                         for (int j = 0; j < i; j++) {
-                                if (cusData[j][0].equals(searchName)) {
-                                    nameFound = true;
-                                    System.out.println("Nama Pengirim             : " +cusData[j][0]);
-                                    System.out.println("Alamat Pengirim           : " +cusData[j][1]);
-                                    System.out.println("Nomor Telephone Pengirim  : " +cusData[j][2]);
-                                    System.out.println("Nama Penerima             : " +cusData[j][3]);
-                                    System.out.println("Nomor Telephone Penerima  : " +cusData[j][4]);
-                                    System.out.println("Lokasi Tujuan Pengiriman  : " +cusData[j][5]);
-                                }
+                            if (cusData[j][0].equals(searchName)) {
+                                nameFound = true;
+                                System.out.println("Nama Pengirim             : " +cusData[j][0]);
+                                System.out.println("Alamat Pengirim           : " +cusData[j][1]);
+                                System.out.println("Nomor Telephone Pengirim  : " +cusData[j][2]);
+                                System.out.println("Nama Penerima             : " +cusData[j][3]);
+                                System.out.println("Nomor Telephone Penerima  : " +cusData[j][4]);
+                                System.out.println("Lokasi Tujuan Pengiriman  : " +cusData[j][5]);
+                            }
                         }
                         if (!nameFound) {
                             System.out.println("Nama Pelanggan tidak ditemukan.");
@@ -214,6 +222,7 @@ public class ekspedisi {
                         if (i == 0) {
                             System.out.println("Data pelanggan belum diisi.");
                         } else {
+
                             System.out.println("===Edit Data Pelanggan===");
                             System.out.print("Masukkan Nama Pelanggan yang akan diubah  : ");
                             String changeName = sc.nextLine();
@@ -237,13 +246,16 @@ public class ekspedisi {
                                 cusData[changeIndex][3] = sc.nextLine();
                                 System.out.print("Masukkan Nomor Telephone Penerima : ");
                                 cusData[changeIndex][4] = sc.nextLine();
-                                System.out.println("Opsi Lokasi:");
-                                System.out.println("1. Kab. Banyuwangi  6. Kab. Jember");
-                                System.out.println("2. Kab. Tuban       7. Kab. Lamongan");
-                                System.out.println("3. Kab. Pasuruan    8. Kab. Blitar");
-                                System.out.println("4. Kota Madiun      9. Kota Batu");
-                                System.out.println("5. Kab. Ngawi       10. Kota Surabaya");
-                                System.out.print("Pilih Lokasi Tujuan Pengiriman    : ");
+                                System.out.println("===========================================");
+                                System.out.println("|               Opsi Lokasi               |");
+                                System.out.println("===========================================");
+                                System.out.println("| 1. Kab. Banyuwangi | 6. Kab. Jember     |");
+                                System.out.println("| 2. Kab. Tuban      | 7. Kab. Lamongan   |");
+                                System.out.println("| 3. Kab. Pasuruan   | 8. Kab. Blitar     |");
+                                System.out.println("| 4. Kota Madiun     | 9. Kota Batu       |");
+                                System.out.println("| 5. Kab. Ngawi      | 10. Kota Surabaya  |");
+                                System.out.println("===========================================");
+                                System.out.print("Pilih Lokasi Tujuan Pengiriman (contoh: Kota Batu)  : ");
                                 cusData[changeIndex][5] = sc.nextLine();
                                 System.out.println("Data pelanggan berhasil diperbarui.");
                             } else {
@@ -289,160 +301,96 @@ public class ekspedisi {
             }
         }
 
-    // fitur biaya pengiriman
     public static void BiayaPengiriman() {
-        Scanner sc = new Scanner(System.in);
-
-        while (true) {
-            System.out.println("==============================");
-            System.out.println("=   Program Biaya Pengiriman  =");
-            System.out.println("==============================");
-    
-            System.out.println("1. Biaya Pengiriman");
-            System.out.println("2. Resi Pengiriman");
-            System.out.println("3. Keluar");
-            System.out.print("Pilih menu (1/2/3): ");
-            int pilihanMenu = sc.nextInt();
-            sc.nextLine(); // Membersihkan newline
-
-            switch (pilihanMenu) {
-                case 1:
-                    menuBiayaPengiriman(sc);
-                    break;
-                case 2:
-                    menuResiPengiriman();
-                    break;
-                case 3:
-                    System.out.println("Terima kasih. Program selesai.");
-                    System.exit(0);
-                default:
-                    System.out.println("Pilihan tidak valid. Silakan coba lagi.");
-            }
-        }
-    }
-
-    public static void menuBiayaPengiriman(Scanner sc) {
-        int biayaKm = 4000, biayaBrt = 5000;
+        int biayaKm = 500, biayaBrt = 100;
         double beratBarang, biayaPengiriman;
 
-        System.out.println("==============================");
-        System.out.println("=   Program Biaya Pengiriman  =");
-        System.out.println("==============================");
-
-        System.out.print("Masukkan jarak pengiriman (dalam km): ");
-        System.out.print("Masukkan Nama Pelanggan yang ingin ditampilkan  : ");
+        System.out.println("================================");
+        System.out.println("=       BIAYA PENGIRIMAN       =");
+        System.out.println("================================");
+        System.out.print("Masukkan Nama Pelanggan untuk menampilkan jarak pengiriman: ");
         String searchName = sc.nextLine();
-        boolean nameFound = false;
-    
         for (int j = 0; j < i; j++) {
             if (cusData[j][0].equals(searchName)) {
-                nameFound = true;
                 lokasiTujuan(j);         
-                System.out.println("jarak             : " +jarakPengiriman[j]);
+                System.out.println("Jarak pengiriman                : " +jarakPengiriman[j]);
                 }
         }
         System.out.print("Masukkan berat barang (dalam kg): ");
-        beratBarang = sc.nextDouble();
-        System.out.print("Pilih jenis layanan (reguler/ekspres): ");
+        beratBarang = sc.nextFloat();
+        System.out.println("+===========================+");
+        System.out.println("=           note            =");
+        System.out.println("+===========================+");
+        System.out.println("| Reguler estimasi 3-4 hari |");
+        System.out.println("| Ekspres estimasi 1-3 hari |");
+        System.out.println("-----------------------------");
+        System.out.print("Pilih jenis layanan (Reguler/Ekspres): ");
         String jenisLayanan = sc.next();
-
         System.out.println("\nMenghitung biaya pengiriman...");
 
         biayaPengiriman = jarakPengiriman[j] * biayaKm + beratBarang * biayaBrt;
 
         if (jarakPengiriman[j] <= 10) {
             if (beratBarang <= 5) {
-                biayaPengiriman *= 0.8;  // ini merupakan pajak tarif pengiriman jarak kurang dari 10 km 
+                biayaPengiriman *= 0.8;
             }
         } else if (jarakPengiriman[j] > 10 && jarakPengiriman[j] <= 50) {
             if (beratBarang > 5) {
-                biayaPengiriman *= 1.2;  // ini pajak tarif pengiriman untuk jarak untuk jarak lebih dari 10 km hingga kurang lebih dari 50
+                biayaPengiriman *= 1.2;
             }
         } else {
-            biayaPengiriman *= 1.5;  // ini pajak tarif tambahan untuk jarang yang lebih jauh 
+            biayaPengiriman *= 1.5;
         }
 
         double biayaReguler = biayaPengiriman;
-        double biayaEkspres = biayaPengiriman *= 1.5;
+        double biayaEkspres = biayaPengiriman * 1.5;
 
-        System.out.println("=== Hasil Perhitungan ===");
-        System.out.println("Jarak Pengiriman   : " + jarakPengiriman + " km");
+        System.out.println("\n     Hasil Perhitungan     ");
+        System.out.println("*****************************");
+        System.out.println("Jarak Pengiriman   : " + jarakPengiriman[j] + " km");
         System.out.println("Berat Barang       : " + beratBarang + " kg");
         System.out.println("Jenis Layanan      : " + jenisLayanan);
 
         if (jenisLayanan.equalsIgnoreCase("reguler")) {
             System.out.println("\nBiaya Pengiriman (Reguler) : Rp" + biayaReguler);
-        } else if (jenisLayanan.equalsIgnoreCase("ekspres")) {
-            System.out.println("Biaya Pengiriman (Ekspres) : Rp" + biayaEkspres);
-        } else {
+        } else if (jenisLayanan.equalsIgnoreCase("ekspres")) 
+            System.out.println("\nBiaya Pengiriman (Ekspres) : Rp" + biayaEkspres);
+
+         else {
             System.out.println("Jenis layanan tidak valid.");
         }
-
-        System.out.println("\nTerima kasih telah menggunakan program biaya pengiriman.");
-    }
-
-    public static void menuResiPengiriman() {
+        
         // Menampilkan nomor resi yang dihasilkan
         String nomorResi = generateNomorResi();
-        System.out.println("=== Resi Pengiriman ===");
-        System.out.println("Nomor Resi         : " + nomorResi);
-
-        // Meminta pengguna untuk memasukkan nomor resi
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Masukkan nomor resi yang ingin dicek: ");
-        String inputNomorResi = scanner.nextLine();
-
-        // Memeriksa nomor resi yang dimasukkan sesuai dengan nomor resi yang dihasilkan
-        if (validateNomorResi(inputNomorResi, nomorResi)) {
-            System.out.println("Nomor resi valid.");
-        } else {
-            System.out.println("Nomor resi tidak valid.");
-        }
+        System.out.println("Nomor Resi: " + nomorResi);
+        System.out.println("kembali ke Menu Utama......");
+         menuUtama();
     }
 
-    // Fungsi untuk menghasilkan nomor resi secara acak
-    static String generateNomorResi() {
-        Random random = new Random();
-        // Menghasilkan nomor resi dengan panjang 6 karakter
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 6; i++) {
-            sb.append(random.nextInt(10)); // Menambahkan digit acak dari 0 hingga 9
-        }
-        return sb.toString();
-    }
-
-    // Fungsi untuk memvalidasi nomor resi 
-    static boolean validateNomorResi(String inputNomorResi, String nomorResi) {
-        return inputNomorResi.equals(nomorResi);
-    }    
+    
     // fitur manajemen pengiriman paket
     public static void manajemenPengirimanPaket() {
-
-        String Abarang;
+        String Abarang, next;
         int jmlhbarang;
         float brtBarang;
-        String next;
-
-       Scanner sc = new Scanner(System.in);
-
-       String[][] barang = new String[10][10];
-
+        
         while (true) {
-            System.out.println("====================");
-            System.out.println("    Pilih menu  ");
-            System.out.println("====================");
+            System.out.println("====================================");
+            System.out.println("=    MANAJEMEN PENGIRIMAN PAKET    =");
+            System.out.println("====================================");
+            System.out.println("------ Pilih menu -----");
             System.out.println("1. Tambah Barang");
-            System.out.println("2. Tampilkan barang");
+            System.out.println("2. Tampilkan Barang");
             System.out.println("3. Kembali ke Menu Utama");
-            System.out.print("Pilih angka 1/2/3: ");
-
-           int pilihan = sc.nextInt();
+            System.out.print("Pilih sub menu (1/2/3): ");
+            int pilihan = sc.nextInt();
+            sc.nextLine();
 
             switch (pilihan) {
                 case 1:
                 do {
                     System.out.print("Masukkan nama barang: ");
-                    Abarang = sc.next();
+                    Abarang = sc.nextLine();
                     System.out.print("Masukkan jumlah barang: ");
                     jmlhbarang = sc.nextInt();
                     System.out.print("Masukkan berat barang(dalam kg): ");
@@ -458,7 +406,7 @@ public class ekspedisi {
                       }
                   }
 
-                    System.out.print("Input barang lagi? (y/n)");
+                  System.out.print("Input barang lagi? (y/n)");
                     next = sc.nextLine();
                 } while (next.equalsIgnoreCase("y"));
                     break;
@@ -480,7 +428,7 @@ public class ekspedisi {
                 break;
                 case 3:
                     System.out.println("=================");
-                    System.out.println("    Thank you   ");
+                    System.out.println("    Thank You   ");
                     System.out.println("=================");
                     menuUtama();
                 default:
@@ -489,82 +437,183 @@ public class ekspedisi {
                     String input = sc.next();
                     if (input.equalsIgnoreCase("N")) {
                         System.out.println("=================");
-                        System.out.println("    Thank you   ");
+                        System.out.println("    Thank You   ");
                         System.out.println("=================");
-                        System.exit(0);
+                        menuUtama();
                     }
                     break;
-            }
+                }
             
         }
     }
 
     // fitur manajemen armada
     public static void manajemenArmada(){
-        Scanner input = new Scanner(System.in);
 
-        System.out.print("Masukkan jumlah barang: ");
-        int jumlahBarang = input.nextInt();
+        while (true) {
+            System.out.println("==========================");
+            System.out.println("=    MANAJEMEN ARMADA    =");
+            System.out.println("==========================");
+            System.out.println("Menu:");
+            System.out.println("1. Kirim paket");
+            System.out.println("2. Kembali ke menu utama");
 
-        for (int i = 1; i <= jumlahBarang; i++) {
-            System.out.print("Masukkan berat barang ke-" + i + " (dalam kilogram): ");
-            float beratBarang = input.nextFloat();
+            System.out.print("Pilih menu (1/2): ");
+            int pilihan = sc.nextInt();
 
-            for (int j = 1; j <= 1; j++) {
-                if (beratBarang >= 120) {
-                    System.out.println("Barang ke-" + i + " dikirim menggunakan mobil");
-                } else {
-                    System.out.println("Barang ke-" + i + " dikirim menggunakan motor");
-                }
+            switch (pilihan) {
+                case 1:
+                    kirimPaket();
+                    break;
+                case 2:
+                    System.out.println("Terima kasih!");
+                    menuUtama();
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid. Silakan pilih kembali (1/2).");
+                    break;
             }
         }
     }
 
-    // fitur pelacakan
+    public static void tampilkanArmada() {
+        truk = new String[] {"Truk A", "Truk B", "Truk C", "Truk D"};
 
-    public static void pelacakanUtkPelanggan() {
-        System.out.println("===================");
-        System.out.println("= PELACAKAN PAKET =");
-        System.out.println("===================");
+        System.out.println("Kendaraan yang tersedia:");
+        for (int i = 0; i < truk.length; i++) {
+            System.out.println((i+1) + ". " + truk[i]);
+        }
+    }
+
+    public static void kirimPaket() {
+        System.out.println("==========================");
+        System.out.println("=      Kirim Paket       =");
+        System.out.println("==========================");
+
+        System.out.println("Pilih armada untuk pengiriman:");
+        tampilkanArmada();
+        System.out.print("Masukkan pilihan armada (1-4): ");
+        int pilihanArmada = sc.nextInt();
+
+        switch (pilihanArmada) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                inputTruk();
+            break;
+            default:
+            System.out.println("Pilihan tidak valid.");
+            break;
+        }
+    }
+    
+    public static void inputTruk(){
+        System.out.print("Masukkan Nama Pelanggan yang ingin dimasukkan : ");
         Scanner sc = new Scanner(System.in);
-        inputResi();
+        String searchName = sc.nextLine();
+        boolean nameFound = false;
+    
+            for (int j = 0; j < i; j++) {
+                if (cusData[j][0].equals(searchName)) {
+                    nameFound = true;
+                    System.out.println("Nama Pengirim             : " +cusData[j][0]);
+                    System.out.println("Alamat Pengirim           : " +cusData[j][1]);
+                    System.out.println("Nomor Telephone Pengirim  : " +cusData[j][2]);
+                    System.out.println("Nama Penerima             : " +cusData[j][3]);
+                    System.out.println("Nomor Telephone Penerima  : " +cusData[j][4]);
+                    System.out.println("Lokasi Tujuan Pengiriman  : " +cusData[j][5]);
+                        }
+                    }
+                    if (!nameFound) {
+                        System.out.println("Nama Pelanggan tidak ditemukan.");
+                    }
+        System.out.println("Ingin menambahkan lagi? (y/n)");
+        String input = sc.nextLine();
+        if (input.equalsIgnoreCase("y")) {
+            inputTruk();
+        } else {
+            manajemenArmada();
+        }
+        sc.close();
+    }
 
+    // fitur pelacakan
+    
+    public static void pelacakanUtkPelanggan() {
+        System.out.println("===========================");
+        System.out.println("=     PELACAKAN PAKET     =");
+        System.out.println("===========================");
+        inputResi();
+        
         while (true) {
-        System.out.print("Ingin melacak paket yang lain? (y/n): ");
-        String pilih = sc.nextLine();
-            if (pilih.equalsIgnoreCase("y")) {
+        System.out.print("Ingin melacak paket yang lain? (y/n) ");
+        jawab = sc.nextLine().charAt(0);
+        if (Character.toLowerCase(jawab) == 'y') {
                 inputResi();
-            } else {
-                logout();
+            } else if (Character.toLowerCase(jawab) == 'n'){
+                logoutPelanggan();
             }
         }
     }
     public static void pelacakanUtkKaryawan(){
-        System.out.println("===================");
-        System.out.println("= PELACAKAN PAKET =");
-        System.out.println("===================");
-        Scanner sc = new Scanner(System.in);
+        System.out.println("===========================");
+        System.out.println("=     PELACAKAN PAKET     =");
+        System.out.println("===========================");
         inputResi();
-
+        
         while (true) {
-        System.out.print("Ingin melacak paket yang lain? (y/n): ");
-        String pilih = sc.nextLine();
-            if (pilih.equalsIgnoreCase("y")) {
+            System.out.print("Ingin melacak paket yang lain? (y/n) ");
+            jawab = sc.nextLine().charAt(0);
+        if (Character.toLowerCase(jawab) == 'y') {
                 inputResi();
-            } else {
+            } else if (Character.toLowerCase(jawab) == 'n') {
                 menuUtama();
             }
         }
     }
 
-    private static void inputResi() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Masukkan nomor resi: ");
-        int resi = sc.nextInt();
-        String statusPaket = lacakStatusPaket(resi);
-        System.out.println("Status Paket: " + statusPaket);
+    public static void inputResi() {
+       Scanner sc = new Scanner(System.in);
+       boolean isResiValid = false;
+       int resi;
+
+       do {
+        System.out.println("Masukkan nomor resi: ");
+        resi = sc.nextInt();
+        isResiValid = validateNomorResi(resi);
+        if (!isResiValid) {
+            System.out.println("Nomor resi tidak valid.");
+        }
+    } while (!isResiValid);
+       String statusPaket = lacakStatusPaket(resi);
+       System.out.println("Status Paket: " + statusPaket);
+       sc.close();
     }
 
+    // Fungsi untuk menghasilkan nomor resi secara acak
+    static String generateNomorResi() {
+        Random random = new Random();
+        // Menghasilkan nomor resi dengan panjang 6 karakter
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            sb.append(random.nextInt(10)); // Menambahkan digit acak dari 0 hingga 9
+        }
+        String nomorResi = sb.toString();
+        nomorResiArray[i] = nomorResi;
+        return sb.toString();
+    }
+
+    // Fungsi untuk memvalidasi nomor resi
+    static boolean validateNomorResi(int resi2) {
+        for (String resi : nomorResiArray) {
+            if (resi != null && resi.equals(String.valueOf(resi2))) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private static String lacakStatusPaket(int resi) {
         String[] status = {"Proses pengiriman", "Paket sudah sampai"};
         Random random = new Random();
@@ -573,62 +622,58 @@ public class ekspedisi {
     }
         // fitur laporan dan analitik
         public static void tampilkanAnalitik(int[] transactionHistory) {
-        int i = transactionHistory.length;
-        if (i == 0) {
-            System.out.println("Data pelanggan belum diisi.");
-            return;
-        }
 
-        int totalTransaksi = 0;
-        int pelangganReguler = 0;
-        int pelangganEkspres = 0;
-
-        for (int j = 0; j < i; j++) {
-            totalTransaksi += transactionHistory[j];
-            if (transactionHistory[j] > 5) {
-                pelangganReguler++;
-            } else {
-                pelangganEkspres++;
-            }
-        }
-
-        float rataRataTransaksi = (float) totalTransaksi / i;
-
-        System.out.println("\n====== ANALITIK ======");
-        System.out.println("Total Pelanggan: " + i);
+        int totalTransaksi = i ;
+        float rataRataTransaksi = (float) totalTransaksi / cusData.length ;
+        
+        System.out.println("==========================");
+        System.out.println("=       ANALITIK         =");
+        System.out.println("==========================");
+        System.out.println("Total Pelanggan: " + totalTransaksi);
         System.out.println("Rata-rata Jumlah Transaksi: " + rataRataTransaksi);
-        System.out.println("Pelanggan Layanan Reguler : " + pelangganReguler);
-        System.out.println("Pelanggan Layanan Ekspres : " + pelangganEkspres);
-    }
     
-
+    
+    }
     // logout
-    public static void logout() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Apakah Anda ingin Logout? (Y/y)");
-        char jawab = sc.nextLine().charAt(0);
+    public static void logoutKaryawan() {
+        System.out.print("Apakah Anda ingin logout? (y/n) ");
+        jawab = sc.nextLine().charAt(0);
         if (Character.toLowerCase(jawab) == 'y') {
             System.out.println("LOGOUT SUCCESSFUL");
-            System.out.println("Apakah Anda ingin login lagi? (Y/y)");
+            System.out.print("Apakah Anda ingin login lagi? (y/n) ");
             jawab = sc.nextLine().charAt(0);
             if (Character.toLowerCase(jawab) == 'y') {
                 loginKaryawan();
-            } else {
+            } else if (Character.toLowerCase(jawab) == 'n') {
                 exit();
             }
+        } else if (Character.toLowerCase(jawab) == 'n') {
+            menuUtama();
+        }
+    }
+
+    public static void logoutPelanggan() {
+        System.out.print("Apakah Anda ingin logout? (y/n) ");
+        jawab = sc.nextLine().charAt(0);
+        if (Character.toLowerCase(jawab) == 'y') {
+            System.out.println("LOGOUT SUCCESSFUL");
+            System.out.print("Apakah Anda ingin login lagi? (y/n) ");
+            jawab = sc.nextLine().charAt(0);
+            if (Character.toLowerCase(jawab) == 'y') {
+                loginKaryawan();
+            } else if (Character.toLowerCase(jawab) == 'n'){
+                exit();
+            }
+        } else if (Character.toLowerCase(jawab) == 'n') {
+            pelacakanUtkPelanggan();
         }
     }
 
     //exit
     public static void exit() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Apakah Anda yakin ingin keluar dari Ekspedisi? (Y/y)");
-        char jawab = sc.nextLine().charAt(0);
-        if (Character.toLowerCase(jawab) == 'y') {
-            System.out.println("Terimakasih telah menggunakan Ekspedisi kami.");
-            System.exit(0);
-        } else {
-            System.out.println("Kembali ke menu.");
-        }
+        System.out.println("============================================");
+        System.out.println("Terimakasih telah menggunakan Ekspedisi kami");
+        System.out.println("============================================");
+        sc.close();
     }
 }
