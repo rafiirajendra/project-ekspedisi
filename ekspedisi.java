@@ -588,7 +588,6 @@ public class ekspedisi {
     } while (!isResiValid);
        String statusPaket = lacakStatusPaket(resi);
        System.out.println("Status Paket: " + statusPaket);
-       sc.close();
     }
 
     // Fungsi untuk menghasilkan nomor resi secara acak
