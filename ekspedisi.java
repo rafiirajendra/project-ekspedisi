@@ -18,7 +18,7 @@ public class ekspedisi {
 
     public static void menuUtama() {
         int pilihan;
-            do {
+            while (true) {
                 System.out.println("==============================");
                 System.out.println("=         MENU UTAMA         =");
                 System.out.println("==============================");
@@ -63,8 +63,7 @@ public class ekspedisi {
                         System.out.println("Pilihan tidak valid. Silakan coba lagi.");
                         break;   
                 }
-            break;
-            } while (pilihan !=8);
+            } 
         }
 
     
@@ -673,6 +672,7 @@ public class ekspedisi {
         System.out.println("============================================");
         System.out.println("Terimakasih telah menggunakan Ekspedisi kami");
         System.out.println("============================================");
+        System.exit(0);
         sc.close();
     }
 }
