@@ -7,6 +7,7 @@ public class ekspedisi {
     static int[] transactionHistory = new int[100];
     static double[] jarakPengiriman = new double[100];
     static String[] nomorResiArray = new String [100];
+    static int jumlahNomorResi = 0;
     static int i = 0;
     static int j = 0;
     static String[] truk;
@@ -309,12 +310,16 @@ public class ekspedisi {
         System.out.println("================================");
         System.out.print("Masukkan Nama Pelanggan untuk menampilkan jarak pengiriman: ");
         String searchName = sc.nextLine();
-        for (int j = 0; j < i; j++) {
-            if (cusData[j][0].equals(searchName)) {
-                lokasiTujuan(j);         
-                System.out.println("Jarak pengiriman                : " +jarakPengiriman[j]);
-                }
+        int j = 0; // Inisialisasi variabel j untuk menyimpan indeks data pelanggan
+
+        for (int k = 0; k < i; k++) {
+            if (cusData[k][0].equals(searchName)) {
+                j = k;
+                break;
+            }
         }
+        lokasiTujuan(j);
+        System.out.println("Jarak pengiriman                : " +jarakPengiriman[j]);
         System.out.print("Masukkan berat barang (dalam kg): ");
         beratBarang = sc.nextFloat();
         System.out.println("+===========================+");
@@ -573,46 +578,48 @@ public class ekspedisi {
     }
 
     public static void inputResi() {
-       Scanner sc = new Scanner(System.in);
-       boolean isResiValid = false;
-       int resi;
+        Scanner sc = new Scanner(System.in);
+        boolean isResiValid = false;
+        String resi;
 
-       do {
-        System.out.println("Masukkan nomor resi: ");
-        resi = sc.nextInt();
-        isResiValid = validateNomorResi(resi);
-        if (!isResiValid) {
-            System.out.println("Nomor resi tidak valid.");
-        }
-    } while (!isResiValid);
-       String statusPaket = lacakStatusPaket(resi);
-       System.out.println("Status Paket: " + statusPaket);
+        do {
+            System.out.println("Masukkan nomor resi: ");
+            resi = sc.nextLine();
+            isResiValid = validateNomorResi(resi);
+            if (!isResiValid) {
+                System.out.println("Nomor resi tidak valid.");
+            }
+        } while (!isResiValid);
+
+        String statusPaket = lacakStatusPaket(resi);
+        System.out.println("Status Paket: " + statusPaket);
     }
 
     // Fungsi untuk menghasilkan nomor resi secara acak
     static String generateNomorResi() {
         Random random = new Random();
-        // Menghasilkan nomor resi dengan panjang 6 karakter
-        StringBuilder sb = new StringBuilder();
+        String nomorResi = "";
+
         for (int i = 0; i < 6; i++) {
-            sb.append(random.nextInt(10)); // Menambahkan digit acak dari 0 hingga 9
+            nomorResi += Integer.toString(random.nextInt(10));
         }
-        String nomorResi = sb.toString();
-        nomorResiArray[i] = nomorResi;
-        return sb.toString();
+
+        nomorResiArray[jumlahNomorResi++] = nomorResi;
+        return nomorResi;
     }
 
     // Fungsi untuk memvalidasi nomor resi
-    static boolean validateNomorResi(int resi2) {
-        for (String resi : nomorResiArray) {
-            if (resi != null && resi.equals(String.valueOf(resi2))) {
+    static boolean validateNomorResi(String resi) {
+        for (String nomor : nomorResiArray) {
+            if (nomor != null && nomor.equals(resi)) {
                 return true;
             }
         }
         return false;
     }
-    
-    private static String lacakStatusPaket(int resi) {
+
+    // Fungsi untuk melacak status paket
+    private static String lacakStatusPaket(String resi) {
         String[] status = {"Proses pengiriman", "Paket sudah sampai"};
         Random random = new Random();
         int acak = random.nextInt(status.length);
@@ -627,6 +634,27 @@ public class ekspedisi {
         System.out.println("==========================");
         System.out.println("=       ANALITIK         =");
         System.out.println("==========================");
+        
+        if (i == 0) {
+            System.out.println("Data pelanggan belum diisi.");
+            return;
+        }
+    
+       
+        for (int j = 0; j < i; j++) {
+            System.out.println("===========================================");
+            System.out.println("|        SEMUA DATA PELANGGAN             |");
+            System.out.println("===========================================");
+            System.out.println("|Pelanggan ke-" + (j + 1));
+            System.out.println("|Nama Pengirim             :               |" +cusData[j][0]);
+            System.out.println("|Alamat Pengirim           :               |" +cusData[j][1]);
+            System.out.println("|Nomor Telephone Pengirim  :               |" +cusData[j][2]);
+            System.out.println("|Nama Penerima             :               |" +cusData[j][3]);
+            System.out.println("|Nomor Telephone Penerima  :               |" +cusData[j][4]);
+            System.out.println("|Lokasi Tujuan Pengiriman  :               |" +cusData[j][5]);
+            System.out.println("|Riwayat Transaksi         :               |" + transactionHistory[j]);
+            System.out.println("---------------------------_---------------");
+        }
         System.out.println("Total Pelanggan: " + totalTransaksi);
         System.out.println("Rata-rata Jumlah Transaksi: " + rataRataTransaksi);
     
