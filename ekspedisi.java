@@ -307,7 +307,6 @@ public class ekspedisi {
        
        
         double beratBarang, biayaPengiriman;
-
         System.out.println("================================");
         System.out.println("=       BIAYA PENGIRIMAN       =");
         System.out.println("================================");
@@ -336,7 +335,6 @@ public class ekspedisi {
         System.out.println("\nMenghitung biaya pengiriman...");
 
         biayaPengiriman = jarakPengiriman[j] * biayaKm + beratBarang * biayaBrt;
-
         if (jarakPengiriman[j] <= 10) {
             if (beratBarang <= 5) {
                 biayaPengiriman *= 0.8;
@@ -348,6 +346,7 @@ public class ekspedisi {
         } else {
             biayaPengiriman *= 1.5;
         }
+        transactionHistory[j]++;
         transactionHistoryBiaya[j] = biayaPengiriman;
         double biayaReguler = biayaPengiriman;
         double biayaEkspres = biayaPengiriman * 1.5;
@@ -632,8 +631,6 @@ public class ekspedisi {
         public static void tampilkanAnalitik(int[] transactionHistory) {
         int totalTransaksi = i ;
         float rataRataTransaksi = (float) totalTransaksi / cusData.length ;
-        transactionHistory[i]++;
-        
         System.out.println("==========================");
         System.out.println("=       ANALITIK         =");
         System.out.println("==========================");
