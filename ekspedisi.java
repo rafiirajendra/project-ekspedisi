@@ -5,6 +5,7 @@ public class ekspedisi {
     static String[][] cusData = new String[100][6];
     static String[][] barang = new String[100][3];
     static int[] transactionHistory = new int[100];
+    static double[] transactionHistoryBiaya = new double[100];
     static double[] jarakPengiriman = new double[100];
     static String[] nomorResiArray = new String [100];
     static int jumlahNomorResi = 0;
@@ -303,6 +304,8 @@ public class ekspedisi {
 
     public static void BiayaPengiriman() {
         int biayaKm = 500, biayaBrt = 100;
+       
+       
         double beratBarang, biayaPengiriman;
 
         System.out.println("================================");
@@ -345,7 +348,7 @@ public class ekspedisi {
         } else {
             biayaPengiriman *= 1.5;
         }
-
+        transactionHistoryBiaya[j] = biayaPengiriman;
         double biayaReguler = biayaPengiriman;
         double biayaEkspres = biayaPengiriman * 1.5;
 
@@ -627,9 +630,9 @@ public class ekspedisi {
     }
         // fitur laporan dan analitik
         public static void tampilkanAnalitik(int[] transactionHistory) {
-
         int totalTransaksi = i ;
         float rataRataTransaksi = (float) totalTransaksi / cusData.length ;
+        transactionHistory[i]++;
         
         System.out.println("==========================");
         System.out.println("=       ANALITIK         =");
@@ -643,17 +646,19 @@ public class ekspedisi {
        
         for (int j = 0; j < i; j++) {
             System.out.println("===========================================");
-            System.out.println("|        SEMUA DATA PELANGGAN             |");
+            System.out.println("|    SEMUA DATA PELANGGAN DALAM 1 HARI    |");
             System.out.println("===========================================");
             System.out.println("|Pelanggan ke-" + (j + 1));
-            System.out.println("|Nama Pengirim             :               |" +cusData[j][0]);
-            System.out.println("|Alamat Pengirim           :               |" +cusData[j][1]);
-            System.out.println("|Nomor Telephone Pengirim  :               |" +cusData[j][2]);
-            System.out.println("|Nama Penerima             :               |" +cusData[j][3]);
-            System.out.println("|Nomor Telephone Penerima  :               |" +cusData[j][4]);
-            System.out.println("|Lokasi Tujuan Pengiriman  :               |" +cusData[j][5]);
-            System.out.println("|Riwayat Transaksi         :               |" + transactionHistory[j]);
-            System.out.println("---------------------------_---------------");
+            System.out.println("|Nama Pengirim             : "+cusData[j][0] );
+            System.out.println("|Alamat Pengirim           : "+cusData[j][1] );
+            System.out.println("|Nomor Telephone Pengirim  : "+cusData[j][2] ); 
+            System.out.println("|Nama Penerima             : "+cusData[j][3] ); 
+            System.out.println("|Nomor Telephone Penerima  : "+cusData[j][4] );
+            System.out.println("|Lokasi Tujuan Pengiriman  : "+cusData[j][5] );
+            System.out.println("|Riwayat Transaksi         : "+ transactionHistory[j]);
+            System.out.println("|Nomor Resi                : " + nomorResiArray[j]); 
+            System.out.println("|Biaya Pengiriman          : Rp" + transactionHistoryBiaya[j]);
+            System.out.println("-------------------------------------------");
         }
         System.out.println("Total Pelanggan: " + totalTransaksi);
         System.out.println("Rata-rata Jumlah Transaksi: " + rataRataTransaksi);
