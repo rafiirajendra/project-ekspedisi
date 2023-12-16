@@ -32,8 +32,9 @@ public class ekspedisi {
                 System.out.println("6. Tampilkan Analitik");
                 System.out.println("7. Logout");
                 System.out.println("8. Exit");
-                System.out.print("Pilih sub menu (1/2/3/4/5/6/7/8): ");
+                System.out.print("Pilih menu (1/2/3/4/5/6/7/8): ");
                 pilihan = sc.nextInt();
+                System.out.println();
                 sc.nextLine();
 
                 switch (pilihan) {
@@ -120,7 +121,6 @@ public class ekspedisi {
             else {
                 System.out.println("Pengguna yang dimasukkan tidak valid. Masukkan 'karyawan' atau 'pelanggan'.");
             }
-        break;
         }
     }
         
@@ -146,7 +146,7 @@ public class ekspedisi {
         System.out.println("| 4. Kota Madiun     | 9. Kota Batu       |");
         System.out.println("| 5. Kab. Ngawi      | 10. Kota Surabaya  |");
         System.out.println("===========================================");
-        System.out.print("Pilih Lokasi Tujuan Pengiriman (contoh: Kota Batu)  : ");
+        System.out.print("Pilih Lokasi Tujuan Pengiriman (contoh: Kab. Jember)  : ");
         cusData[i][5] = sc.nextLine();
         lokasiTujuan(j);
         i++;
@@ -188,6 +188,7 @@ public class ekspedisi {
                 System.out.println("5. Kembali ke Menu Utama");
                 System.out.print("Pilih sub menu (1/2/3/4/5): ");
                 pilihan = sc.nextInt();
+                System.out.println();
                 sc.nextLine();
     
                 switch (pilihan) {
@@ -256,7 +257,7 @@ public class ekspedisi {
                                 System.out.println("| 4. Kota Madiun     | 9. Kota Batu       |");
                                 System.out.println("| 5. Kab. Ngawi      | 10. Kota Surabaya  |");
                                 System.out.println("===========================================");
-                                System.out.print("Pilih Lokasi Tujuan Pengiriman (contoh: Kota Batu)  : ");
+                                System.out.print("Pilih Lokasi Tujuan Pengiriman (contoh: Kab. Jember)  : ");
                                 cusData[changeIndex][5] = sc.nextLine();
                                 System.out.println("Data pelanggan berhasil diperbarui.");
                             } else {
@@ -325,7 +326,7 @@ public class ekspedisi {
         System.out.print("Masukkan berat barang (dalam kg): ");
         beratBarang = sc.nextFloat();
         System.out.println("+===========================+");
-        System.out.println("=           note            =");
+        System.out.println("=          KETERANGAN       =");
         System.out.println("+===========================+");
         System.out.println("| Reguler estimasi 3-4 hari |");
         System.out.println("| Ekspres estimasi 1-3 hari |");
@@ -384,12 +385,12 @@ public class ekspedisi {
             System.out.println("====================================");
             System.out.println("=    MANAJEMEN PENGIRIMAN PAKET    =");
             System.out.println("====================================");
-            System.out.println("------ Pilih menu -----");
             System.out.println("1. Tambah Barang");
             System.out.println("2. Tampilkan Barang");
             System.out.println("3. Kembali ke Menu Utama");
             System.out.print("Pilih sub menu (1/2/3): ");
             int pilihan = sc.nextInt();
+            System.out.println();
             sc.nextLine();
 
             switch (pilihan) {
@@ -460,11 +461,9 @@ public class ekspedisi {
             System.out.println("==========================");
             System.out.println("=    MANAJEMEN ARMADA    =");
             System.out.println("==========================");
-            System.out.println("Menu:");
             System.out.println("1. Kirim paket");
             System.out.println("2. Kembali ke menu utama");
-
-            System.out.print("Pilih menu (1/2): ");
+            System.out.print("Pilih sub menu (1/2): ");
             int pilihan = sc.nextInt();
 
             switch (pilihan) {
@@ -493,7 +492,7 @@ public class ekspedisi {
 
     public static void kirimPaket() {
         System.out.println("==========================");
-        System.out.println("=      Kirim Paket       =");
+        System.out.println("=      KIRIM PAKET       =");
         System.out.println("==========================");
 
         System.out.println("Pilih armada untuk pengiriman:");
@@ -631,32 +630,30 @@ public class ekspedisi {
         public static void tampilkanAnalitik(int[] transactionHistory) {
         int totalTransaksi = i ;
         float rataRataTransaksi = (float) totalTransaksi / cusData.length ;
-        System.out.println("==========================");
-        System.out.println("=       ANALITIK         =");
-        System.out.println("==========================");
+        System.out.println("============================================================");
+        System.out.println("=                          ANALITIK                        =");
+        System.out.println("============================================================\n");
         
         if (i == 0) {
             System.out.println("Data pelanggan belum diisi.");
             return;
         }
-    
-       
+            System.out.println("------------------------------------------------------------");
+            System.out.println("            SEMUA DATA PELANGGAN DALAM SATU HARI            ");
+            System.out.println("------------------------------------------------------------");
         for (int j = 0; j < i; j++) {
-            System.out.println("===========================================");
-            System.out.println("|    SEMUA DATA PELANGGAN DALAM 1 HARI    |");
-            System.out.println("===========================================");
-            System.out.println("|Pelanggan ke-" + (j + 1));
-            System.out.println("|Nama Pengirim             : "+cusData[j][0] );
-            System.out.println("|Alamat Pengirim           : "+cusData[j][1] );
-            System.out.println("|Nomor Telephone Pengirim  : "+cusData[j][2] ); 
-            System.out.println("|Nama Penerima             : "+cusData[j][3] ); 
-            System.out.println("|Nomor Telephone Penerima  : "+cusData[j][4] );
-            System.out.println("|Lokasi Tujuan Pengiriman  : "+cusData[j][5] );
-            System.out.println("|Riwayat Transaksi         : "+ transactionHistory[j]);
-            System.out.println("|Nomor Resi                : " + nomorResiArray[j]); 
-            System.out.println("|Biaya Pengiriman          : Rp" + transactionHistoryBiaya[j]);
-            System.out.println("-------------------------------------------");
-        }
+            System.out.printf("| %-56s |\n", "Pelanggan ke-" + (j + 1));
+            System.out.printf("| %-24s : %-29s |\n", "Nama Pengirim", cusData[j][0]);
+            System.out.printf("| %-24s : %-29s |\n", "Alamat Pengirim", cusData[j][1]);
+            System.out.printf("| %-24s : %-29s |\n", "Nomor Telephone Pengirim", cusData[j][2]);
+            System.out.printf("| %-24s : %-29s |\n", "Nama Penerima", cusData[j][3]);
+            System.out.printf("| %-24s : %-29s |\n", "Nomor Telephone Penerima", cusData[j][4]);
+            System.out.printf("| %-24s : %-29s |\n", "Lokasi Tujuan Pengiriman", cusData[j][5]);
+            System.out.printf("| %-24s : %-29s |\n", "Riwayat Transaksi", transactionHistory[j]);
+            System.out.printf("| %-24s : %-29s |\n", "Nomor Resi", nomorResiArray[j]);
+            System.out.printf("| %-24s : %-29s |\n", "Biaya Pengiriman", "Rp" + transactionHistoryBiaya[j]);
+            System.out.println("------------------------------------------------------------");
+        }       
         System.out.println("Total Pelanggan: " + totalTransaksi);
         System.out.println("Rata-rata Jumlah Transaksi: " + rataRataTransaksi);
     
