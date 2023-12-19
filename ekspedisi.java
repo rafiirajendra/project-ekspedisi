@@ -639,7 +639,7 @@ public class ekspedisi {
             return;
         }
             System.out.println("------------------------------------------------------------");
-            System.out.println("            SEMUA DATA PELANGGAN DALAM SATU HARI            ");
+            System.out.println("|            SEMUA DATA PELANGGAN DALAM SATU HARI           |");
             System.out.println("------------------------------------------------------------");
         for (int j = 0; j < i; j++) {
             System.out.printf("| %-56s |\n", "Pelanggan ke-" + (j + 1));
